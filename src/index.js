@@ -10,7 +10,9 @@ app.get('/', () => {
   return 'Hello World'
 })
 
-app.get('/hello', () => {
+app.post('/articles', (request) => {
+  console.warn(request.body)
+
   return 'Hello World !!!!!'
 })
 
