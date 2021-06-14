@@ -1,7 +1,9 @@
-POST http://127.0.0.1:4545/articles
+GET http://127.0.0.1:4545/categories
 Content-Type: application/json
 
-{
-  "title": "Super article",
-  "description": "Super description"
-}
+###
+
+POST http://127.0.0.1/categories
+Content-Type: application/json
+
+{ "title": "test" }
