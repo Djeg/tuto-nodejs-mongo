@@ -1,9 +1,8 @@
 module.exports = (app, opts, done) => {
+  const { db } = app
+
   app.get('/categories', async (request) => {
-    const categories = await request.db
-      .collection('categories')
-      .find()
-      .toArray()
+    const categories = await db.collection('categories').find().toArray()
 
     return categories
   })
@@ -27,11 +26,11 @@ module.exports = (app, opts, done) => {
       },
     },
     async (request, reply) => {
-      const { insertedId } = await request.db
+      const { insertedId } = await db
         .collection('categories')
         .insertOne(request.body)
 
-      const category = await request.db.collection('categories').findOne({
+      const category = await db.collection('categories').findOne({
         _id: insertedId,
       })
 

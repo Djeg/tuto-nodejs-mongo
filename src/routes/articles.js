@@ -1,10 +1,7 @@
 module.exports = (app, opts, done) => {
-  app.get('/articles', async (request) => {
-    // Grâce à la décoration, nous pouvons accéder
-    // à la base de données en utilisant :
-    // this.db
-    const db = request.db
+  const { db } = app
 
+  app.get('/articles', async (request) => {
     // Nous récupérons la totalité des articles, que
     // nous formattons en un tableaux javascript
     const articles = await db.collection('articles').find().toArray()
@@ -43,13 +40,11 @@ module.exports = (app, opts, done) => {
       const article = request.body
       // On récupére l'id du document enregistré en base
       // de données
-      const { insertedId } = await request.db
-        .collection('articles')
-        .insertOne(article)
+      const { insertedId } = await db.collection('articles').insertOne(article)
 
       // On récupére l'article enregistré depuis la base de
       // données
-      const insertedArticle = await request.db
+      const insertedArticle = await db
         .collection('articles')
         .findOne({ _id: insertedId })
 
