@@ -13,17 +13,22 @@ app.get('/', () => {
   return 'Hello World'
 })
 
-app.get('/categories', () => {
-  return ['animale', 'nature', 'science', 'technologie']
+app.get('/categories', async (request) => {
+  const categories = await request.db.collection('categories').find().toArray()
+
+  return categories
 })
 
-app.post('/categories', (request, reply) => {
-  reply.code(201)
-  reply.header('X-Powered-By', 'fastify')
+app.post('/categories', async (request, reply) => {
+  const { insertedId } = await request.db
+    .collection('categories')
+    .insertOne(request.body)
 
-  console.warn(request.body.description)
+  const category = await request.db.collection('categories').findOne({
+    _id: insertedId,
+  })
 
-  return { status: 200 }
+  return category
 })
 
 app.get('/articles', async (request) => {
