@@ -10,10 +10,27 @@ app.get('/', () => {
   return 'Hello World'
 })
 
-app.post('/articles', (request) => {
-  console.warn(request.body)
+app.get('/categories', () => {
+  return ['animale', 'nature', 'science', 'technologie']
+})
 
-  return 'Hello World !!!!!'
+app.post('/categories', (request, reply) => {
+  reply.code(201)
+  reply.header('X-Powered-By', 'fastify')
+
+  console.warn(request.body.description)
+
+  return { status: 200 }
+})
+
+app.get('/articles', () => {
+  return [{ title: 'Mon premier article' }]
+})
+
+app.post('/articles', (request) => {
+  console.warn(request.body.title)
+
+  return { status: 200 }
 })
 
 const start = async () => {
