@@ -39,10 +39,22 @@ app.get('/articles', async (request) => {
   return articles
 })
 
-app.post('/articles', (request) => {
-  console.warn(request.body.title)
+app.post('/articles', async (request) => {
+  // On récupére l'article envoyé depuis la requête
+  const article = request.body
+  // On récupére l'id du document enregistré en base
+  // de données
+  const { insertedId } = await request.db
+    .collection('articles')
+    .insertOne(article)
 
-  return { status: 200 }
+  // On récupére l'article enregistré depuis la base de
+  // données
+  const insertedArticle = await request.db
+    .collection('articles')
+    .findOne({ _id: insertedId })
+
+  return insertedArticle
 })
 
 const start = async () => {
