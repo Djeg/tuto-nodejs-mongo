@@ -19,17 +19,38 @@ app.get('/categories', async (request) => {
   return categories
 })
 
-app.post('/categories', async (request, reply) => {
-  const { insertedId } = await request.db
-    .collection('categories')
-    .insertOne(request.body)
+app.post(
+  '/categories',
+  {
+    schema: {
+      body: {
+        type: 'object',
+        properties: {
+          titre: {
+            type: 'string',
+          },
+          description: {
+            type: 'string',
+          },
+        },
+        required: ['titre'],
+      },
+    },
+  },
+  async (request, reply) => {
+    const { insertedId } = await request.db
+      .collection('categories')
+      .insertOne(request.body)
 
-  const category = await request.db.collection('categories').findOne({
-    _id: insertedId,
-  })
+    const category = await request.db.collection('categories').findOne({
+      _id: insertedId,
+    })
 
-  return category
-})
+    reply.code(201)
+
+    return category
+  }
+)
 
 app.get('/articles', async (request) => {
   // Grâce à la décoration, nous pouvons accéder
@@ -44,7 +65,7 @@ app.get('/articles', async (request) => {
   return articles
 })
 
-app.post('/articles', async (request) => {
+app.post('/articles', async (request, reply) => {
   // On récupére l'article envoyé depuis la requête
   const article = request.body
   // On récupére l'id du document enregistré en base
@@ -58,6 +79,10 @@ app.post('/articles', async (request) => {
   const insertedArticle = await request.db
     .collection('articles')
     .findOne({ _id: insertedId })
+
+  // Nous ajoutons le code 201 Created afin de réspécter
+  // le protocol HTTP
+  reply.code(201)
 
   return insertedArticle
 })

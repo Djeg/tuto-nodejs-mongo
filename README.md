@@ -82,3 +82,20 @@ la commande : `npm start`
    enregistré dans la BDD et nous le retournons
 2. Vous pouvez tester en utilisant le fichier
    `request.http`
+
+### 3. Schématiser les articles
+
+1. Dans le fichier src/index.js, dans la route
+   `POST /articles`, ajouter un schema au body de
+   notre request qui respécte les caractéristiques
+   suivantes :
+
+```
+*title: string
+*description: string
+*images: [ string ]
+shortDescription: string
+*author:
+  *firstname: string
+  *lastname: string
+```
