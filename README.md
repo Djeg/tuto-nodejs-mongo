@@ -61,3 +61,24 @@ la commande : `npm start`
    et retourne l'objet suivant `{ "status": 200 }`
 2. Vous pouvez utiliser le fichier `request.http`
    afin de tester la requète
+
+### 1. Insérer et récupérer des categories
+
+#### Exo1
+
+1. Dans le fichier src/index.js, dans la route
+   `GET /categories`, utiliser la base de données
+   pour récupérer toutes les categories et les
+   retourner
+2. Vous pouvez tester en utilisant le fichier
+   `request.http`
+
+#### Exo2
+
+1. Dans le fichier src/index.js, dans la route
+   `POST /categories`, utiliser la base de données
+   pour insérer la catégorie envoyée dans la requête.
+   Ensuite nous récupérons la catégories nouvellement
+   enregistré dans la BDD et nous le retournons
+2. Vous pouvez tester en utilisant le fichier
+   `request.http`
