@@ -8,10 +8,7 @@ const app = fastify({ logger: true })
 
 // On lui attache « la route » (le path, l'URI, chemin)  suivi
 // d'une callback en utilisant la fonction « get »
-
-app.get('/', () => {
-  return 'Hello World'
-})
+app.register(require('./routes/index'))
 
 app.get('/categories', async (request) => {
   const categories = await request.db.collection('categories').find().toArray()
@@ -65,27 +62,54 @@ app.get('/articles', async (request) => {
   return articles
 })
 
-app.post('/articles', async (request, reply) => {
-  // On récupére l'article envoyé depuis la requête
-  const article = request.body
-  // On récupére l'id du document enregistré en base
-  // de données
-  const { insertedId } = await request.db
-    .collection('articles')
-    .insertOne(article)
+app.post(
+  '/articles',
+  {
+    schema: {
+      body: {
+        type: 'object',
+        required: ['title', 'description', 'images', 'author'],
+        properties: {
+          title: { type: 'string' },
+          description: { type: 'string' },
+          images: {
+            type: 'array',
+            items: { type: 'string' },
+          },
+          author: {
+            type: 'object',
+            required: ['firstname', 'lastname'],
+            properties: {
+              firstname: { type: 'string' },
+              lastname: { type: 'string' },
+            },
+          },
+        },
+      },
+    },
+  },
+  async (request, reply) => {
+    // On récupére l'article envoyé depuis la requête
+    const article = request.body
+    // On récupére l'id du document enregistré en base
+    // de données
+    const { insertedId } = await request.db
+      .collection('articles')
+      .insertOne(article)
 
-  // On récupére l'article enregistré depuis la base de
-  // données
-  const insertedArticle = await request.db
-    .collection('articles')
-    .findOne({ _id: insertedId })
+    // On récupére l'article enregistré depuis la base de
+    // données
+    const insertedArticle = await request.db
+      .collection('articles')
+      .findOne({ _id: insertedId })
 
-  // Nous ajoutons le code 201 Created afin de réspécter
-  // le protocol HTTP
-  reply.code(201)
+    // Nous ajoutons le code 201 Created afin de réspécter
+    // le protocol HTTP
+    reply.code(201)
 
-  return insertedArticle
-})
+    return insertedArticle
+  }
+)
 
 const start = async () => {
   // on se connecte à la base de données

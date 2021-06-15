@@ -1,3 +1,6 @@
+GET http://127.0.0.1:4545/
+Content-Type: application/json
+###
 GET http://127.0.0.1:4545/categories
 Content-Type: application/json
 
@@ -18,4 +21,13 @@ Content-Type: application/json
 POST http://127.0.0.1:4545/articles
 Content-Type: application/json
 
-{ "title": "Mon super article" }
+{
+  "title": "Mon super article",
+  "description": "Description de mon article",
+  "shortDescription": "Article",
+  "images": [ "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.encyclopedie-hp.org%2Fwp-content%2Fuploads%2Fsites%2F4%2F2016%2F08%2Fharry4.jpg&f=1&nofb=1" ],
+  "author": {
+    "firstname": "J.K.",
+    "lastname": "Rowling"
+  }
+}
