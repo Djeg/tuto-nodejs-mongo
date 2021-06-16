@@ -2,6 +2,7 @@ module.exports = (app, opts, done) => {
   const { db } = app
 
   app.get('/articles', async (request) => {
+    await request.jwtVerify()
     // Nous récupérons la totalité des articles, que
     // nous formattons en un tableaux javascript
     const articles = await db.collection('articles').find().toArray()
@@ -19,6 +20,7 @@ module.exports = (app, opts, done) => {
       },
     },
     async (request, reply) => {
+      await request.jwtVerify()
       // On récupére l'article envoyé depuis la requête
       const article = request.body
       // On récupére l'id du document enregistré en base

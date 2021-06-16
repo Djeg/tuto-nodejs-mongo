@@ -55,7 +55,9 @@ module.exports = (app, opts, done) => {
     }
   )
 
-  app.get('/users', async () => {
+  app.get('/users', async (request) => {
+    await request.jwtVerify()
+
     const users = await app.db.collection('users').find().toArray()
 
     return users

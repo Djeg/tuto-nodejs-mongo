@@ -38,6 +38,9 @@ const start = async () => {
     secret: 'test',
   })
 
+  // On inclue le plugin cors afin de gérer les requêtes CORS
+  app.register(require('fastify-cors'))
+
   // On inclue des plugins "routes" fastify.
   // Attention, pour définir des schémas sur l'intégralité de notre
   // application, il faut utiliser fatify-plugin

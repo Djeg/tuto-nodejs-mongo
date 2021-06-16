@@ -1,7 +1,9 @@
 module.exports = (app, opts, done) => {
   const { db } = app
 
-  app.get('/categories', async () => {
+  app.get('/categories', async (request) => {
+    await request.jwtVerify()
+
     const categories = await db.collection('categories').find().toArray()
 
     return categories
@@ -15,6 +17,8 @@ module.exports = (app, opts, done) => {
       },
     },
     async (request, reply) => {
+      await request.jwtVerify()
+
       const { insertedId } = await db
         .collection('categories')
         .insertOne(request.body)
