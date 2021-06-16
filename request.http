@@ -31,3 +31,20 @@ Content-Type: application/json
     "lastname": "Rowling"
   }
 }
+
+###
+
+POST http://localhost:4545/users
+Content-Type: application/json
+
+{
+  "email": "john.doe@mail.com",
+  "password": "john.doe",
+  "firstname": "John",
+  "lastname": "Doe"
+}
+
+###
+
+GET http://localhost:4545/users
+Content-Type: application/json

@@ -13,9 +13,11 @@ const start = async () => {
   // application, il faut utiliser fatify-plugin
   app.register(fp(require('./schemas/categories')))
   app.register(fp(require('./schemas/articles')))
+  app.register(fp(require('./schemas/users')))
   app.register(require('./routes/index'))
   app.register(require('./routes/categories'))
   app.register(require('./routes/articles'))
+  app.register(require('./routes/users'))
 
   // on se connecte à la base de données
   const db = await mongo.MongoClient.connect(
