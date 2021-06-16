@@ -11,5 +11,15 @@ module.exports = (app, opts, done) => {
     },
   })
 
+  app.addSchema({
+    $id: 'credential',
+    type: 'object',
+    required: ['email', 'password'],
+    properties: {
+      email: { type: 'string' },
+      password: { type: 'string' },
+    },
+  })
+
   done()
 }
