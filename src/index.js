@@ -3,6 +3,11 @@ const fastify = require('fastify')
 const fp = require('fastify-plugin')
 // On inclue la librairie mongo
 const mongo = require('mongodb')
+// On inclue la librairie dotenv qui nous permet
+// de lire le fichier `.env` qui contient la configuration
+const dotenv = require('dotenv')
+// Nous lisons le fichier .env
+dotenv.config()
 
 const start = async () => {
   // On créé une application
@@ -39,9 +44,7 @@ const start = async () => {
   app.register(require('./routes/users'))
 
   // on se connecte à la base de données
-  const db = await mongo.MongoClient.connect(
-    'mongodb+srv://test:test@cluster0.suzgw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
-  )
+  const db = await mongo.MongoClient.connect(process.env.MONGO_URL)
 
   // Nous obtenons la base de donnnées blog
   const blogBDD = db.db('blog')

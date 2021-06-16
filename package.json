@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Djeg/tuto-nodejs-mongo#readme",
   "dependencies": {
+    "dotenv": "^10.0.0",
     "fastify": "^3.17.0",
     "fastify-plugin": "^3.0.0",
     "fastify-swagger": "^4.7.0",
