@@ -8,6 +8,25 @@ const start = async () => {
   // On créé une application
   const app = fastify({ logger: true })
 
+  // On include fastify-swagger qui génére une documentation
+  // dapi
+  app.register(require('fastify-swagger'), {
+    routePrefix: '/doc',
+    exposeRoute: true,
+    openapi: {
+      info: {
+        title: 'Mon Blog',
+        description: 'testing the fastify  blog api',
+        version: '0.1.0',
+      },
+      servers: [
+        {
+          url: 'http://localhost:4545',
+        },
+      ],
+    },
+  })
+
   // On inclue des plugins "routes" fastify.
   // Attention, pour définir des schémas sur l'intégralité de notre
   // application, il faut utiliser fatify-plugin

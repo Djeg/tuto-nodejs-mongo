@@ -1,6 +1,8 @@
 module.exports = (app, opts, done) => {
   app.addSchema({
     $id: 'article',
+    title: 'article',
+    description: 'Un article de blog',
     type: 'object',
     required: ['title', 'description', 'images', 'author'],
     properties: {
