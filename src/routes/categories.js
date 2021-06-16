@@ -1,7 +1,7 @@
 module.exports = (app, opts, done) => {
   const { db } = app
 
-  app.get('/categories', async (request) => {
+  app.get('/categories', async () => {
     const categories = await db.collection('categories').find().toArray()
 
     return categories
@@ -11,18 +11,7 @@ module.exports = (app, opts, done) => {
     '/categories',
     {
       schema: {
-        body: {
-          type: 'object',
-          properties: {
-            titre: {
-              type: 'string',
-            },
-            description: {
-              type: 'string',
-            },
-          },
-          required: ['titre'],
-        },
+        body: { $ref: 'category' },
       },
     },
     async (request, reply) => {

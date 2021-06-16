@@ -19,6 +19,7 @@
   "homepage": "https://github.com/Djeg/tuto-nodejs-mongo#readme",
   "dependencies": {
     "fastify": "^3.17.0",
+    "fastify-plugin": "^3.0.0",
     "mongodb": "^3.6.9",
     "nodemon": "^2.0.7"
   }

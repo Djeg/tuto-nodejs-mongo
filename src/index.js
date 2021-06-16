@@ -1,5 +1,6 @@
 // Require la librairie fastify
 const fastify = require('fastify')
+const fp = require('fastify-plugin')
 // On inclue la librairie mongo
 const mongo = require('mongodb')
 
@@ -7,7 +8,11 @@ const start = async () => {
   // On créé une application
   const app = fastify({ logger: true })
 
-  // On inclue des plugins "routes" fastify
+  // On inclue des plugins "routes" fastify.
+  // Attention, pour définir des schémas sur l'intégralité de notre
+  // application, il faut utiliser fatify-plugin
+  app.register(fp(require('./schemas/categories')))
+  app.register(fp(require('./schemas/articles')))
   app.register(require('./routes/index'))
   app.register(require('./routes/categories'))
   app.register(require('./routes/articles'))

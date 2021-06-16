@@ -9,7 +9,7 @@ Content-Type: application/json
 POST http://127.0.0.1:4545/categories
 Content-Type: application/json
 
-{ "titre": "plip" }
+{ "jfgsd": "plip" }
 
 ###
 
