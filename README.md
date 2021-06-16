@@ -19,7 +19,12 @@ Pout le télécharger plusieurs choix:
 Se rendre avec un terminal dans le répertoire du projet
 et lancer la commande: `npm install`
 
-### 3. Démarrer le serveur
+### 3. Configurer le projet
+
+Copier coller le fichier `.env.dist` en `.env` et éditer
+les valeurs configurations si besoin.
+
+### 4. Démarrer le serveur
 
 Depuis le répertoire du projet, dans un terminal, éxécuter
 la commande : `npm start`
