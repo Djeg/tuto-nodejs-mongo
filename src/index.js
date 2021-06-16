@@ -9,6 +9,8 @@ const dotenv = require('dotenv')
 // Nous lisons le fichier .env
 dotenv.config()
 
+const add = (x, y) => x + y
+
 const start = async () => {
   // On créé une application
   const app = fastify({ logger: true })
