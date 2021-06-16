@@ -99,3 +99,26 @@ shortDescription: string
   *firstname: string
   *lastname: string
 ```
+
+### 4. Les utilisateurs
+
+1. Créer un fichier `src/schemas/user.js`, ajouter un schema
+   avec les champs suivant:
+
+```
+*email: string
+*password: string
+firstname: string
+lastname: string
+image: string
+```
+
+2. Importer ce schemas depuis notre `src/index.js`
+3. Créer un fichier `src/routes/user.js` et ajouter une route
+   `POST /users` qui accèpte un user dans le body de la request
+   et enregistre l'utilisateur en base de données
+4. Ajouter une route `GET /users` qui retourne tout les utilisateurs
+   en base de données
+5. Importer `src/routes/user.js` dans `src/index.js`
+6. Vous pouvez tester `POST /users` et `GET /users` dans le fichier
+   `request.http`
