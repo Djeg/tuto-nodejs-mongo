@@ -127,3 +127,20 @@ image: string
 5. Importer `src/routes/user.js` dans `src/index.js`
 6. Vous pouvez tester `POST /users` et `GET /users` dans le fichier
    `request.http`
+
+### 5. Authentification
+
+1. Créer un schéma dans `src/schema/users.js` que nous appelerons
+   "credential" et qui est de forme suivante :
+
+```
+*email: string
+*password: string
+```
+
+2. Ajoute une route `POST /authenticate` dans `src/routes/users.js`. Dans
+   cette route, nous récupérons l'utilisateur avec l'email et le mot de passe
+   renseigné dans le body de request (pour la vérification du mot de passe
+   vous devrez probablement utiliser le module crypto ...).
+3. Nous générons un token grace à `app.jwt.sign(user)`
+4. Nous retournons l'objet suivant: `{ "token": "<token>"}`

@@ -48,3 +48,20 @@ Content-Type: application/json
 
 GET http://localhost:4545/users
 Content-Type: application/json
+
+
+###
+
+POST http://localhost:4545/authenticate
+Content-Type: application/json
+
+{
+  "email": "john.doe@mail.com",
+  "password": "johndoe"
+}
+
+###
+
+GET http://localhost:4545/articles
+Content-Type: application/json
+Authorization: Bearer aaaaa

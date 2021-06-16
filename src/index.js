@@ -32,6 +32,12 @@ const start = async () => {
     },
   })
 
+  // On inclue le plugin jwt, nous permettant de crypter/décrypter
+  // des tokens d'authentification
+  app.register(require('fastify-jwt'), {
+    secret: 'test',
+  })
+
   // On inclue des plugins "routes" fastify.
   // Attention, pour définir des schémas sur l'intégralité de notre
   // application, il faut utiliser fatify-plugin
