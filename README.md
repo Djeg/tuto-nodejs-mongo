@@ -151,3 +151,19 @@ image: string
    authentifie un utilisateur et s'assure de recevoir un token
 1. Dans le fichier `src/__tests__/users.test.js`, ajouter un test qui
    test la liste des utilisateurs et qu'elle ne soit pas vide
+
+### 7. Ajout de configuration
+
+1. Ajouter dans le fichier `.env.dist` (ainsi que votre fichier `.env`) les
+   valeurs suivantes:
+
+```
+JWT_SECRET=secretDuJwt
+PORT=4545
+HOST=localhost
+```
+
+2. Modifier le fichier `src/app.js` pour utiliser la variable: `process.env.JWT_SECRET`
+
+3. Modifier dans le fichier `src/index.js` la fonction `app.listen` et lui
+   spécifier 2 paramètres : `process.env.PORT`, `process.env.HOST`
