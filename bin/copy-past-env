@@ -3,6 +3,6 @@ const fs = require('fs')
 
 // Si le fichier `.env` n'éxiste pas
 if (!fs.existsSync(`${__dirname}/../.env`)) {
-  // Nous copi/collons le fichier `.env.dist` dans `.env`
+  // Nous copions/collons le fichier `.env.dist` dans `.env`
   fs.copyFileSync(`${__dirname}/../.env.dist`, `${__dirname}/../.env`)
 }

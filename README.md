@@ -144,3 +144,10 @@ image: string
    vous devrez probablement utiliser le module crypto ...).
 3. Nous générons un token grace à `app.jwt.sign(user)`
 4. Nous retournons l'objet suivant: `{ "token": "<token>"}`
+
+### 6. Tester les utilisateurs
+
+1. Dans le fichier `src/__tests__/users.test.js`, ajouter un test qui
+   authentifie un utilisateur et s'assure de recevoir un token
+1. Dans le fichier `src/__tests__/users.test.js`, ajouter un test qui
+   test la liste des utilisateurs et qu'elle ne soit pas vide
