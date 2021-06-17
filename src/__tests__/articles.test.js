@@ -1,7 +1,7 @@
 import { build } from '../app.js'
-import { authenticateUser } from '../utils/testUtil'
+import { authenticateUser } from '../utils/testUtil.js'
 
-describe('A category', () => {
+describe('An article', () => {
   let app
 
   beforeAll(async () => {
@@ -13,18 +13,24 @@ describe('A category', () => {
     await app.close()
   })
 
-  it('can create a category using the POST /categories', async () => {
+  it('creates an article using POST /articles', async () => {
     const token = await authenticateUser({
-      email: 'test.category1@mail.com',
+      email: 'test.article.create@mail.com',
       password: 'test',
       app,
     })
 
     const response = await app.inject({
       method: 'POST',
-      url: '/categories',
+      url: '/articles',
       payload: {
-        titre: 'Test',
+        title: 'article test',
+        description: 'Test',
+        images: ['img.jpg'],
+        author: {
+          firstname: 'test author',
+          lastname: 'test author',
+        },
       },
       headers: {
         authorization: `Bearer ${token}`,
@@ -33,21 +39,21 @@ describe('A category', () => {
 
     expect(response.statusCode).toBe(201)
 
-    const { titre } = await response.json()
+    const { title } = await response.json()
 
-    expect(titre).toBe('Test')
+    expect(title).toBe('article test')
   })
 
-  it('can lists categories using the GET /categories', async () => {
+  it('can list articles using GET /articles', async () => {
     const token = await authenticateUser({
-      email: 'test.category.list@mail.com',
+      email: 'test.article.list@mail.com',
       password: 'test',
       app,
     })
 
     const response = await app.inject({
       method: 'GET',
-      url: '/categories',
+      url: '/articles',
       headers: { authorization: `Bearer ${token}` },
     })
 
@@ -60,61 +66,73 @@ describe('A category', () => {
 
   it('can modify a category using the PATCH /categories', async () => {
     const token = await authenticateUser({
-      email: 'test.category.modify@mail.com',
+      email: 'test.article.modify@mail.com',
       password: 'test',
       app,
     })
 
-    const newCategoryResponse = await app.inject({
+    const newArticleResponse = await app.inject({
       method: 'POST',
-      url: '/categories',
+      url: '/articles',
       payload: {
-        titre: 'Test 2',
+        title: 'article test',
+        description: 'Test',
+        images: ['img.jpg'],
+        author: {
+          firstname: 'test author',
+          lastname: 'test author',
+        },
       },
       headers: {
         authorization: `Bearer ${token}`,
       },
     })
 
-    const { _id } = await newCategoryResponse.json()
+    const { _id } = await newArticleResponse.json()
 
     const response = await app.inject({
       method: 'PATCH',
-      url: `/categories/${_id}`,
+      url: `/articles/${_id}`,
       headers: { authorization: `Bearer ${token}` },
-      payload: { titre: 'Nouveau Titre' },
+      payload: { title: "Nouveau Titre de l'article" },
     })
 
     expect(response.statusCode).toBe(200)
 
-    const { titre } = await response.json()
+    const { title } = await response.json()
 
-    expect(titre).toBe('Nouveau Titre')
+    expect(title).toBe("Nouveau Titre de l'article")
   })
 
   it('can delete a category using the DELETE /categories/:id', async () => {
     const token = await authenticateUser({
-      email: 'test.category.delete@mail.com',
+      email: 'test.article.delete@mail.com',
       password: 'test',
       app,
     })
 
-    const newCategoryResponse = await app.inject({
+    const newArticleResponse = await app.inject({
       method: 'POST',
-      url: '/categories',
+      url: '/articles',
       payload: {
-        titre: 'Test 2',
+        title: 'article test',
+        description: 'Test',
+        images: ['img.jpg'],
+        author: {
+          firstname: 'test author',
+          lastname: 'test author',
+        },
       },
       headers: {
         authorization: `Bearer ${token}`,
       },
     })
 
-    const { _id } = await newCategoryResponse.json()
+    const { _id } = await newArticleResponse.json()
 
     const response = await app.inject({
       method: 'DELETE',
-      url: `/categories/${_id}`,
+      url: `/articles/${_id}`,
       headers: { authorization: `Bearer ${token}` },
     })
 

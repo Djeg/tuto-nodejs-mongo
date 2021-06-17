@@ -1,3 +1,5 @@
+import mongo from 'mongodb'
+
 export default (app, opts, done) => {
   const { db } = app
 
@@ -40,6 +42,48 @@ export default (app, opts, done) => {
       return insertedArticle
     }
   )
+
+  app.patch(
+    '/articles/:id',
+    { schema: { body: { $ref: 'article_update' } } },
+    async (request, reply) => {
+      await request.jwtVerify()
+
+      const id = request.params.id
+
+      const result = await db
+        .collection('articles')
+        .updateOne({ _id: mongo.ObjectID(id) }, { $set: request.body })
+
+      if (result.modifiedCount < 1) {
+        reply.code(404)
+        return 'Not found'
+      }
+
+      const article = await db.collection('articles').findOne({
+        _id: mongo.ObjectId(id),
+      })
+
+      return article
+    }
+  )
+
+  app.delete('/articles/:id', async (request, reply) => {
+    await request.jwtVerify()
+
+    const result = await db.collection('articles').deleteOne({
+      _id: mongo.ObjectId(request.params.id),
+    })
+
+    if (result.deletedCount < 1) {
+      reply.code(404)
+      return 'Not Found'
+    }
+
+    reply.code(204)
+
+    return null
+  })
 
   done()
 }

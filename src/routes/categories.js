@@ -3,20 +3,6 @@ import mongo from 'mongodb'
 export default (app, opts, done) => {
   const { db } = app
 
-  app.get('/categories/:id', async (request) => {
-    // ici nous le paramètre de route "id" qui a était spécifié
-    // dans l'url de notre requête.
-    console.log(request.params.id)
-
-    // Pour mettre à jour un document depuis mongo:
-    // await app.collection('categories').updateOne(
-    //   { _id: '2KHFKSKZKHF76' },
-    //   { $set: { titre: 'Nouveau titre' } }
-    // )
-
-    return 'ok'
-  })
-
   app.get('/categories', async (request) => {
     await request.jwtVerify()
 
