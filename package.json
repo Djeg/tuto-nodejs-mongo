@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "nodemon src/index.js",
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest --setupFiles dotenv/config",
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --setupFiles dotenv/config",
     "preinstall": "node bin/copy-past-env"
   },
   "repository": {
@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/Djeg/tuto-nodejs-mongo#readme",
   "dependencies": {
+    "cross-env": "^7.0.3",
     "dotenv": "^10.0.0",
     "fastify": "^3.17.0",
     "fastify-cors": "^6.0.1",
