@@ -8,7 +8,7 @@ const start = async () => {
   const app = await build()
 
   // On démarre l'application
-  await app.listen(4545)
+  await app.listen(process.env.PORT, process.env.HOST)
 }
 
 start()

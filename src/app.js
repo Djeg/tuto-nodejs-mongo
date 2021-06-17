@@ -38,7 +38,7 @@ export const build = async (logger = true) => {
   // On inclue le plugin jwt, nous permettant de crypter/décrypter
   // des tokens d'authentification
   app.register(fastifyJwt, {
-    secret: 'test',
+    secret: process.env.JWT_SECRET,
   })
 
   // On inclue le plugin cors afin de gérer les requêtes CORS
@@ -61,7 +61,7 @@ export const build = async (logger = true) => {
   })
 
   // Nous obtenons la base de donnnées blog
-  const blogBDD = db.db('blog')
+  const blogBDD = db.db(process.env.MONGO_DB_NAME)
 
   // Nous décorons fastify en ajoutant
   // le mot clefs "db"  à la request de
