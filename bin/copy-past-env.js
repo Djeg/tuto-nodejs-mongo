@@ -3,8 +3,8 @@ import fs from 'fs'
 import path from 'path'
 
 const __dirname = path.dirname(new URL(import.meta.url).pathname)
-const envPath = path.join(__dirname, '..', '.env')
-const envDistPath = path.join(__dirname, '..', '.env.dist')
+let envPath = path.join(__dirname, '..', '.env')
+let envDistPath = path.join(__dirname, '..', '.env.dist')
 
 if (/win/.test(process.platform)) {
   envDistPath = envDistPath.slice(1)
