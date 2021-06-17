@@ -7,7 +7,7 @@
   "scripts": {
     "start": "nodemon src/index.js",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --setupFiles dotenv/config",
-    "preinstall": "node bin/copy-past-env"
+    "preinstall": "node bin/copy-past-env.js"
   },
   "repository": {
     "type": "git",
