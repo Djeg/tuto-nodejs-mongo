@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "Nodejs tutorielle",
   "main": "src/index.js",
+  "type": "module",
   "scripts": {
     "start": "nodemon src/index.js",
-    "test": "jest --setupFiles dotenv/config",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest --setupFiles dotenv/config",
     "preinstall": "node bin/copy-past-env"
   },
   "repository": {

@@ -1,7 +1,6 @@
-// On inclue la librairie dotenv qui nous permet
-// de lire le fichier `.env` qui contient la configuration
-const dotenv = require('dotenv')
-const { build } = require('./app')
+import { build } from './app.js'
+import dotenv from 'dotenv'
+
 // Nous lisons le fichier .env
 dotenv.config()
 

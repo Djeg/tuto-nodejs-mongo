@@ -1,4 +1,4 @@
-module.exports = (app, opts, done) => {
+export default (app, opts, done) => {
   app.addSchema({
     $id: 'article',
     title: 'article',

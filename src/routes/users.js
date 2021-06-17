@@ -1,6 +1,6 @@
-const crypto = require('crypto')
+import { createHash } from 'crypto'
 
-module.exports = (app, opts, done) => {
+export default (app, opts, done) => {
   app.post(
     '/authenticate',
     { schema: { body: { $ref: 'credential' } } },
@@ -15,8 +15,7 @@ module.exports = (app, opts, done) => {
         return { message: 'Invalid email' }
       }
 
-      const password = crypto
-        .createHash('sha256')
+      const password = createHash('sha256')
         .update(request.body.password)
         .digest('base64')
 
@@ -37,8 +36,7 @@ module.exports = (app, opts, done) => {
     { schema: { body: { $ref: 'user' } } },
     async (request, reply) => {
       // On enregistre l'utilisateur dans la BDD
-      const password = crypto
-        .createHash('sha256')
+      const password = createHash('sha256')
         .update(request.body.password)
         .digest('base64')
 

@@ -6,7 +6,7 @@ Nous exportons une fonction plugin qui accépte
 3. Une fonction à appeler une fois que notre plugin
    est terminé
 */
-module.exports = (app, opts, done) => {
+export default (app, opts, done) => {
   app.get('/', () => {
     return 'Hello World'
   })

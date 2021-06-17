@@ -1,4 +1,4 @@
-const { build } = require('./../app')
+import { build } from '../app.js'
 
 // Nous commencons un block de test grâce à describe :)
 describe('A user', () => {

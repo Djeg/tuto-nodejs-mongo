@@ -1,4 +1,4 @@
-module.exports = (app, opts, done) => {
+export default (app, opts, done) => {
   const { db } = app
 
   app.get('/categories', async (request) => {

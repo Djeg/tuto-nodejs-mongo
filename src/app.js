@@ -1,14 +1,24 @@
-const fastify = require('fastify')
-const mongo = require('mongodb')
-const fp = require('fastify-plugin')
+import fastify from 'fastify'
+import mongo from 'mongodb'
+import fp from 'fastify-plugin'
+import fastifySwagger from 'fastify-swagger'
+import fastifyJwt from 'fastify-jwt'
+import fastifyCors from 'fastify-cors'
+import articleSchema from './schemas/articles.js'
+import categorySchema from './schemas/categories.js'
+import userSchema from './schemas/users.js'
+import articleRoute from './routes/articles.js'
+import categoryRoute from './routes/categories.js'
+import userRoute from './routes/users.js'
+import homeRoute from './routes/index.js'
 
-module.exports.build = async (logger = true) => {
+export const build = async (logger = true) => {
   // On créé une application
   const app = fastify({ logger: logger })
 
   // On include fastify-swagger qui génére une documentation
   // dapi
-  app.register(require('fastify-swagger'), {
+  app.register(fastifySwagger, {
     routePrefix: '/doc',
     exposeRoute: true,
     openapi: {
@@ -27,23 +37,23 @@ module.exports.build = async (logger = true) => {
 
   // On inclue le plugin jwt, nous permettant de crypter/décrypter
   // des tokens d'authentification
-  app.register(require('fastify-jwt'), {
+  app.register(fastifyJwt, {
     secret: 'test',
   })
 
   // On inclue le plugin cors afin de gérer les requêtes CORS
-  app.register(require('fastify-cors'))
+  app.register(fastifyCors)
 
   // On inclue des plugins "routes" fastify.
   // Attention, pour définir des schémas sur l'intégralité de notre
   // application, il faut utiliser fatify-plugin
-  app.register(fp(require('./schemas/categories')))
-  app.register(fp(require('./schemas/articles')))
-  app.register(fp(require('./schemas/users')))
-  app.register(require('./routes/index'))
-  app.register(require('./routes/categories'))
-  app.register(require('./routes/articles'))
-  app.register(require('./routes/users'))
+  app.register(fp(categorySchema))
+  app.register(fp(articleSchema))
+  app.register(fp(userSchema))
+  app.register(homeRoute)
+  app.register(categoryRoute)
+  app.register(articleRoute)
+  app.register(userRoute)
 
   // on se connecte à la base de données
   const db = await mongo.MongoClient.connect(process.env.MONGO_URL, {
