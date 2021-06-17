@@ -2,9 +2,9 @@ const fastify = require('fastify')
 const mongo = require('mongodb')
 const fp = require('fastify-plugin')
 
-module.exports.build = async () => {
+module.exports.build = async (logger = true) => {
   // On créé une application
-  const app = fastify({ logger: true })
+  const app = fastify({ logger: logger })
 
   // On include fastify-swagger qui génére une documentation
   // dapi
