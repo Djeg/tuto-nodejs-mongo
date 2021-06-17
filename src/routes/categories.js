@@ -53,6 +53,8 @@ export default (app, opts, done) => {
     '/categories/:id',
     { schema: { body: { $ref: 'category_update' } } },
     async (request, reply) => {
+      await request.jwtVerify()
+
       const id = request.params.id
 
       const result = await db
@@ -71,6 +73,23 @@ export default (app, opts, done) => {
       return category
     }
   )
+
+  app.delete('/categories/:id', async (request, reply) => {
+    await request.jwtVerify()
+
+    const result = await db.collection('categories').deleteOne({
+      _id: mongo.ObjectId(request.params.id),
+    })
+
+    if (result.deletedCount < 1) {
+      reply.send(404)
+      return 'Not Found'
+    }
+
+    reply.code(204)
+
+    return null
+  })
 
   done()
 }

@@ -91,4 +91,33 @@ describe('A category', () => {
 
     expect(titre).toBe('Nouveau Titre')
   })
+
+  it('can delete a category using the DELETE /categories/:id', async () => {
+    const token = await authenticateUser({
+      email: 'test.category.delete@mail.com',
+      password: 'test',
+      app,
+    })
+
+    const newCategoryResponse = await app.inject({
+      method: 'POST',
+      url: '/categories',
+      payload: {
+        titre: 'Test 2',
+      },
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    })
+
+    const { _id } = await newCategoryResponse.json()
+
+    const response = await app.inject({
+      method: 'DELETE',
+      url: `/categories/${_id}`,
+      headers: { authorization: `Bearer ${token}` },
+    })
+
+    expect(response.statusCode).toBe(204)
+  })
 })
