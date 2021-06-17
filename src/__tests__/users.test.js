@@ -1,4 +1,5 @@
 import { build } from '../app.js'
+import { authenticateUser } from '../utils/testUtil'
 
 // Nous commencons un block de test grâce à describe :)
 describe('A user', () => {
@@ -55,53 +56,21 @@ describe('A user', () => {
   })
 
   it('can be authenticated with POST /authenticate', async () => {
-    await app.inject({
-      method: 'POST',
-      url: '/users',
-      payload: {
-        email: 'test2@mail.com',
-        password: 'test2',
-        firstname: 'test2',
-        lastname: 'test2',
-      },
+    const token = await authenticateUser({
+      email: 'test.auth1@mail.com',
+      password: 'test.auth',
+      app,
     })
-
-    const response = await app.inject({
-      method: 'POST',
-      url: '/authenticate',
-      payload: {
-        email: 'test2@mail.com',
-        password: 'test2',
-      },
-    })
-
-    const { token } = await response.json()
 
     expect(token).toBeDefined()
   })
 
   it('lists users using GET /users', async () => {
-    await app.inject({
-      method: 'POST',
-      url: '/users',
-      payload: {
-        email: 'test3@mail.com',
-        password: 'test3',
-        firstname: 'test3',
-        lastname: 'test3',
-      },
+    const token = await authenticateUser({
+      email: 'test.user.list@mail.com',
+      password: 'test.user.list',
+      app,
     })
-
-    const tokenResponse = await app.inject({
-      method: 'POST',
-      url: '/authenticate',
-      payload: {
-        email: 'test3@mail.com',
-        password: 'test3',
-      },
-    })
-
-    const { token } = await tokenResponse.json()
 
     const response = await app.inject({
       method: 'GET',

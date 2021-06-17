@@ -15,5 +15,18 @@ export default (app, opts, done) => {
     required: ['titre'],
   })
 
+  app.addSchema({
+    $id: 'category_update',
+    type: 'object',
+    properties: {
+      titre: {
+        type: 'string',
+      },
+      description: {
+        type: 'string',
+      },
+    },
+  })
+
   done()
 }

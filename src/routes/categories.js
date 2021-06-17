@@ -1,3 +1,5 @@
+import mongo from 'mongodb'
+
 export default (app, opts, done) => {
   const { db } = app
 
@@ -42,6 +44,29 @@ export default (app, opts, done) => {
       })
 
       reply.code(201)
+
+      return category
+    }
+  )
+
+  app.patch(
+    '/categories/:id',
+    { schema: { body: { $ref: 'category_update' } } },
+    async (request, reply) => {
+      const id = request.params.id
+
+      const result = await db
+        .collection('categories')
+        .updateOne({ _id: mongo.ObjectID(id) }, { $set: request.body })
+
+      if (result.modifiedCount < 1) {
+        reply.code(404)
+        return 'Not found'
+      }
+
+      const category = await db.collection('categories').findOne({
+        _id: mongo.ObjectId(id),
+      })
 
       return category
     }
