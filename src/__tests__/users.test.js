@@ -1,21 +1,35 @@
 const { build } = require('./../app')
 
+// Nous commencons un block de test grâce à describe :)
 describe('A user', () => {
+  // Création d'une variable qui contiendra notre application
   let app
 
+  // Nous utilisons une fonction de "hook" qui s'éxécutéra afin
+  // tout nos tests
   beforeAll(async () => {
+    // Nous créons l'application en spécifiant "false" pour ne pas
+    // avoir le log dans la console !
     app = await build(false)
   })
 
+  // Nous utilisons une fonction de "hook" quie s'éxécutera à la fin
+  // de tout nos tests
   afterAll(async () => {
+    // Nous fermons la connection à la base de données
     app.db.topology.close()
+    // Nous fermons le server HTTP de fastify
     await app.close()
   })
 
   it('can be created with POST /users', async () => {
+    // Exécution d'une requête HTTP sur `/users`
     const response = await app.inject({
+      // La méthode HTTP
       method: 'POST',
+      // La route
       url: '/users',
+      // Le body de la request
       payload: {
         email: 'test@mail.com',
         password: 'test',
@@ -24,10 +38,13 @@ describe('A user', () => {
       },
     })
 
+    // Nous nous assurtons de recevoir le bon statusCode
     expect(response.statusCode).toBe(201)
 
+    // Nous récupérons les données de la réponse en JSON
     const data = await response.json()
 
+    // Nous nous assurons d'avoir les bonnes données
     expect(data).toMatchObject({
       _id: expect.any(String),
       email: 'test@mail.com',
