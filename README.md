@@ -167,3 +167,39 @@ HOST=localhost
 
 3. Modifier dans le fichier `src/index.js` la fonction `app.listen` et lui
    spécifier 2 paramètres : `process.env.PORT`, `process.env.HOST`
+
+### 8. Ajouter la modification et la suppression
+
+1. Ajouter dans le fichier `src/schemas/categories.js` un nouveau
+   schema 'category_update' de la même forme que category mais sans
+   aucun champs requis
+
+2. Ajouter dans le fichier `src/schemas/articles.js` un nouveau
+   schema 'article_update' de la même forme que article mais sans
+   aucun champs requis
+
+3. Ajouter dans le fichier `src/routes/categories.js` une route pour
+   `PATCH /categories/:id`. Cette route doit récupérer la category avec l'identifiant
+   donné puis mettre à jour la category avec les données de
+   la requête. Une fois l'opération terminé, retourner la nouvelle catégory
+   enregistré en base de données (cette route doit être accessible uniquement
+   au utilisateur authentifié)
+
+4. Ajouter dans le fichier `src/routes/categories.js` une route pour
+   `DELETE /categories/:id`. Cette route doit récupérer la category avec l'identifiant
+   donné puis la supprimer. Pour la supprimer utiliser `app.collection('..').deleteOne({ _id: 'dflksdhfkdhf' })`. Une fois la catégory supprimé, retourner
+   le status code 204 ainsi qu'une valeur `null` (cette route doit être accessible uniquement
+   au utilisateur authentifié)
+
+5. Ajouter dans le fichier `src/routes/articles.js` une route pour
+   `PATCH /articles/:id`. Cette route doit récupérer l'article avec l'identifiant
+   donné puis mettre à jour l'article avec les données de
+   la requête. Une fois l'opération terminé, retourner le nouvel article
+   enregistré en base de données (cette route doit être accessible uniquement
+   au utilisateur authentifié)
+
+6. Ajouter dans le fichier `src/routes/articles.js` une route pour
+   `DELETE /articles/:id`. Cette route doit récupérer l'article avec l'identifiant
+   donné puis le supprimer. Pour le supprimer utiliser `app.collection('..').deleteOne({ _id: 'dflksdhfkdhf' })`. Une fois l'article supprimé, retourner
+   le status code 204 ainsi qu'une valeur `null` (cette route doit être accessible uniquement
+   au utilisateur authentifié)
