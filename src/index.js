@@ -7,7 +7,7 @@ const fastify = require('fastify')
 const app = fastify({ logger: true })
 
 // Création d'une route GET sur le chemin "/"
-app.get('/', function () {
+app.get('/', (request) => {
   return 'Coucou les amis !!!'
 })
 
