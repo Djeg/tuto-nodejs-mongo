@@ -5,7 +5,7 @@
 1. Dans le fichier src/index.js, créer une route
    `GET /categories` qui retourne le tableaux suivant:
    `['animale', 'nature', 'science', 'technologie']`
-2. Vous pouvez tester la router `GET /categories` en
+2. Vous pouvez tester la route `GET /categories` en
    utilisant le fichier `request.http`
 
 ## Exo2

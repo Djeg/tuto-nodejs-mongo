@@ -1,1 +1,17 @@
 GET http://localhost:8080
+
+###
+
+GET http://localhost:8080/categories
+
+###
+
+POST http://localhost:8080/categories
+
+###
+
+GET http://localhost:8080/articles
+
+###
+
+POST http://localhost:8080/articles
