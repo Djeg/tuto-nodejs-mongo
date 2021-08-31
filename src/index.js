@@ -6,5 +6,10 @@ const fastify = require('fastify')
 // toutes nos routes
 const app = fastify({ logger: true })
 
+// Création d'une route GET sur le chemin "/"
+app.get('/', function () {
+  return 'Coucou'
+})
+
 // On lance le serveur sur le port 8080
 app.listen(8080)
