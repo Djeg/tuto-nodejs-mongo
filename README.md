@@ -23,6 +23,12 @@ nescessaire il vous faut d'abord les prérequis suivant :
 - Ainsi que MongoDB, pour cela soit directement via
   le service cloud [MongoDB Atlas](https://www.mongodb.com/fr-fr/cloud/atlas) ou bien en [l'installant sur
   votre machine](https://www.mongodb.com/try/download/community)
+- Un éditeur de code, [VSCode est fortement conseillé](https://code.visualstudio.com/)
+- Les extensions suivante sont conseillé pour VSCode :
+  - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+  - [DotENV](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+  - [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
+  - [EditorConfig](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
 
 ## Installation
 
