@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/Djeg/tuto-nodejs-mongo/issues"
   },
-  "homepage": "https://github.com/Djeg/tuto-nodejs-mongo#readme"
+  "homepage": "https://github.com/Djeg/tuto-nodejs-mongo#readme",
+  "dependencies": {
+    "fastify": "^3.20.2"
+  }
 }
