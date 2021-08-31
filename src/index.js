@@ -1,5 +1,7 @@
 // On importe la librairie fastify
 const fastify = require('fastify')
+// On importe la librairie mongodb
+const mongodb = require('mongodb')
 
 // Créer une application fastify.
 // Une application fastify c'est ce qui vas contenir
@@ -7,13 +9,18 @@ const fastify = require('fastify')
 const app = fastify({ logger: true })
 
 // Création d'une route GET sur le chemin "/"
-app.get('/', (request) => {
-  return 'Coucou les amis !!!'
-})
+app.get('/', async () => {
+  // Se connécter à la base de données
+  const connection = await mongodb.MongoClient.connect(
+    'mongodb+srv://blog:blog@cluster0.78yvz.mongodb.net/blog?retryWrites=true&w=majority'
+  )
 
-const a = () => {
-  return { status: 200 }
-}
+  // On récupére toutes les données de la collection test de notre base de données
+  // blog
+  const data = await connection.db('blog').collection('test').find().toArray()
+
+  return data
+})
 
 // Récupére les catégories
 app.get('/categories', () => ['animale', 'nature', 'science', 'technologie'])
