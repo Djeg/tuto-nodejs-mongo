@@ -3,6 +3,27 @@
 Ce projet contient un tutorielle pour nodejs et
 mongodb.
 
+## Suivre la formation
+
+Vous pouvez retrouver le support de la formation
+juste ici : https://slides.com/davidjegat-1/nodejs-mongodb/fullscreen
+
+Vous pouvez aussi suivre ainsi que copier coller
+le code durant toute la formation sur ce lien :
+https://github1s.com/Djeg/tuto-nodejs-mongo
+
+## Les prérequis
+
+Afin de suivre la formation et d'avoir tout les outils
+nescessaire il vous faut d'abord les prérequis suivant :
+
+- Un terminal comme [Git Bash](https://gitforwindows.org/)
+- [NodeJS](https://nodejs.org/en/download/)
+- [MongoDB Compass](https://www.mongodb.com/fr-fr/products/compass)
+- Ainsi que MongoDB, pour cela soit directement via
+  le service cloud [MongoDB Atlas](https://www.mongodb.com/fr-fr/cloud/atlas) ou bien en [l'installant sur
+  votre machine](https://www.mongodb.com/try/download/community)
+
 ## Installation
 
 Pour installer le projet suivez ces instructions :
@@ -12,7 +33,7 @@ Pour installer le projet suivez ces instructions :
 Pout le télécharger plusieurs choix:
 
 - Git clone: `git clone https://github.com/Djeg/tuto-nodejs-mongo.git`
-- [Téléchargement direct](https://github.com/Djeg/tuto-nodejs-mongo/archive/refs/heads/master.zip)
+- [Téléchargement direct](https://github.com/Djeg/tuto-nodejs-mongo/archive/refs/heads/main.zip)
 
 ### 2. Installer le projet
 
