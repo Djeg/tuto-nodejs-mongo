@@ -26,7 +26,7 @@ nescessaire il vous faut d'abord les prérequis suivant :
 - Un éditeur de code, [VSCode est fortement conseillé](https://code.visualstudio.com/)
 - Les extensions suivante sont conseillé pour VSCode :
   - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-  - [DotENV](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+  - [DotENV](https://marketplace.visualstudio.com/items?itemName=mikestead.dotenv)
   - [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
   - [EditorConfig](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
 
