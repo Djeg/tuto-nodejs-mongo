@@ -39,19 +39,27 @@
 ## Exo1
 
 1. Dans le fichier src/index.js, dans la route
-   `GET /categories`, utiliser la base de données
-   pour récupérer toutes les categories et les
-   retourner
+   `POST /articles`, utiliser la base de données
+   pour enregistrer un article avec les données
+   suivante : `titre: string, description: string, content: string`
 2. Vous pouvez tester en utilisant le fichier
    `request.http`
 
 ## Exo2
 
 1. Dans le fichier src/index.js, dans la route
-   `POST /categories`, utiliser la base de données
-   pour insérer la catégorie envoyée dans la requête.
-   Ensuite nous récupérons la catégories nouvellement
-   enregistré dans la BDD et nous le retournons
+   `GET /categories`, utiliser la base de données
+   pour récupérer et retourner toutes les catégories
+   de la collection `categories`
+2. Vous pouvez tester en utilisant le fichier
+   `request.http`
+
+## Exo3
+
+1. Dans le fichier src/index.js, dans la route
+   `GET /articles`, utiliser la base de données
+   pour récupérer et retourner toutes les articles
+   de la collection `articles`
 2. Vous pouvez tester en utilisant le fichier
    `request.http`
 
