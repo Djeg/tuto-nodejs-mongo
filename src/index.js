@@ -35,24 +35,40 @@ async function main() {
   })
 
   // Création d'une catégorie
-  app.post('/categories', async (request, reply) => {
-    const category = request.body
+  app.post(
+    '/categories',
+    {
+      schema: {
+        body: {
+          type: 'object',
+          properties: {
+            title: {
+              type: 'string',
+            },
+          },
+          required: ['title'],
+        },
+      },
+    },
+    async (request, reply) => {
+      const category = request.body
 
-    // On insére la catégorie
-    const result = await db.collection('categories').insertOne(category)
+      // On insére la catégorie
+      const result = await db.collection('categories').insertOne(category)
 
-    // On récupére la catégorie qui vient d'être enregistré
-    const insertedCategory = await db.collection('categories').findOne({
-      _id: mongodb.ObjectId(result.insertedId),
-    })
+      // On récupére la catégorie qui vient d'être enregistré
+      const insertedCategory = await db.collection('categories').findOne({
+        _id: mongodb.ObjectId(result.insertedId),
+      })
 
-    // Changement du status code pour être 201
-    reply.code(201)
-    // Ajouter un header http
-    reply.header('Inserted-Id', result.insertedId)
+      // Changement du status code pour être 201
+      reply.code(201)
+      // Ajouter un header http
+      reply.header('Inserted-Id', result.insertedId)
 
-    return insertedCategory
-  })
+      return insertedCategory
+    }
+  )
 
   // Récupére les articles
   app.get('/articles', async () => {
@@ -64,24 +80,30 @@ async function main() {
   })
 
   // Création d'un article
-  app.post('/articles', async (request, reply) => {
-    // Nous récupérons l'article depuis le corps de la requête
-    const article = request.body
+  app.post(
+    '/articles',
+    {
+      // EXO : Faire le schéma pour la création d'article
+    },
+    async (request, reply) => {
+      // Nous récupérons l'article depuis le corps de la requête
+      const article = request.body
 
-    // enregistrement de l'article dans la base de données
-    const result = await db.collection('articles').insertOne(article)
+      // enregistrement de l'article dans la base de données
+      const result = await db.collection('articles').insertOne(article)
 
-    // Récupération de l'article enregistré en base de données
-    const insertedArticle = await db.collection('articles').findOne({
-      _id: mongodb.ObjectId(result.insertedId),
-    })
+      // Récupération de l'article enregistré en base de données
+      const insertedArticle = await db.collection('articles').findOne({
+        _id: mongodb.ObjectId(result.insertedId),
+      })
 
-    // Nous spécifions un code HTTP 201 Created
-    reply.code(201)
+      // Nous spécifions un code HTTP 201 Created
+      reply.code(201)
 
-    // Nous retournons l'article nouvellement créé
-    return insertedArticle
-  })
+      // Nous retournons l'article nouvellement créé
+      return insertedArticle
+    }
+  )
 
   // On lance le serveur sur le port 8080
   app.listen(8080)
