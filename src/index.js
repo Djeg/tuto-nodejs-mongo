@@ -2,6 +2,8 @@
 const fastify = require('fastify')
 // On importe la librairie mongodb
 const mongodb = require('mongodb')
+// On importe le plugin routes/home
+const home = require('./routes/home')
 
 async function main() {
   // Créer une application fastify.
@@ -17,14 +19,15 @@ async function main() {
   // On récupére la base de données (Cette fonction N'EST PAS ASYNCHRONE)
   const db = connection.db('blog')
 
-  // Création d'une route GET sur le chemin "/"
-  app.get('/', async () => {
-    // On récupére toutes les données de la collection test de notre base de données
-    // blog
-    const data = await db.collection('test').find().toArray()
+  // La décoration permet de rendre accessible
+  // n'importe valeur en utilisant directement
+  // l'application.
+  // Ici, app.db retourneras toujours la base de données
+  app.decorate('db', db)
 
-    return data
-  })
+  // On connécte le plugin grace à la fonction "register"
+  // routes home à l'application
+  app.register(home)
 
   // Récupére les catégories
   app.get('/categories', async () => {
@@ -83,7 +86,23 @@ async function main() {
   app.post(
     '/articles',
     {
-      // EXO : Faire le schéma pour la création d'article
+      schema: {
+        body: {
+          type: 'object',
+          required: ['title', 'description', 'content'],
+          properties: {
+            title: {
+              type: 'string',
+            },
+            description: {
+              type: 'string',
+            },
+            content: {
+              type: 'string',
+            },
+          },
+        },
+      },
     },
     async (request, reply) => {
       // Nous récupérons l'article depuis le corps de la requête

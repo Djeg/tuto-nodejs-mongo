@@ -21,7 +21,7 @@ POST http://localhost:8080/articles
 Content-Type: application/json
 
 {
-  "tite": "Mon premier article",
+  "title": "Mon premier article",
   "description": "Description",
   "content": "Lorem ipsum"
 }
