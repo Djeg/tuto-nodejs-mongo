@@ -19,9 +19,6 @@ async function main() {
 
   // Création d'une route GET sur le chemin "/"
   app.get('/', async () => {
-    // On récupére la base de données (Cette fonction N'EST PAS ASYNCHRONE)
-    const db = await databaseConnect()
-
     // On récupére toutes les données de la collection test de notre base de données
     // blog
     const data = await db.collection('test').find().toArray()
@@ -35,7 +32,6 @@ async function main() {
   // Création d'une catégorie
   app.post('/categories', async (request, reply) => {
     const category = request.body
-    const db = await databaseConnect()
 
     // On insére la catégorie
     const result = await db.collection('categories').insertOne(category)
