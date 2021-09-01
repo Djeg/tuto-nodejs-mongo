@@ -3,36 +3,64 @@ const fastify = require('fastify')
 // On importe la librairie mongodb
 const mongodb = require('mongodb')
 
-// Créer une application fastify.
-// Une application fastify c'est ce qui vas contenir
-// toutes nos routes
-const app = fastify({ logger: true })
+async function main() {
+  // Créer une application fastify.
+  // Une application fastify c'est ce qui vas contenir
+  // toutes nos routes
+  const app = fastify({ logger: true })
 
-// Création d'une route GET sur le chemin "/"
-app.get('/', async () => {
-  // Se connécter à la base de données
+  // Se connécter au cluster
   const connection = await mongodb.MongoClient.connect(
     'mongodb+srv://blog:blog@cluster0.78yvz.mongodb.net/blog?retryWrites=true&w=majority'
   )
 
-  // On récupére toutes les données de la collection test de notre base de données
-  // blog
-  const data = await connection.db('blog').collection('test').find().toArray()
+  // On récupére la base de données (Cette fonction N'EST PAS ASYNCHRONE)
+  const db = connection.db('blog')
 
-  return data
-})
+  // Création d'une route GET sur le chemin "/"
+  app.get('/', async () => {
+    // On récupére la base de données (Cette fonction N'EST PAS ASYNCHRONE)
+    const db = await databaseConnect()
 
-// Récupére les catégories
-app.get('/categories', () => ['animale', 'nature', 'science', 'technologie'])
+    // On récupére toutes les données de la collection test de notre base de données
+    // blog
+    const data = await db.collection('test').find().toArray()
 
-// Création d'une catégorie
-app.post('/categories', () => ({ status: 200 }))
+    return data
+  })
 
-// Récupére les articles
-app.get('/articles', () => [{ title: 'Mon premier article' }])
+  // Récupére les catégories
+  app.get('/categories', () => ['animale', 'nature', 'science', 'technologie'])
 
-// Création d'un article
-app.post('/articles', () => ({ status: 200 }))
+  // Création d'une catégorie
+  app.post('/categories', async (request, reply) => {
+    const category = request.body
+    const db = await databaseConnect()
 
-// On lance le serveur sur le port 8080
-app.listen(8080)
+    // On insére la catégorie
+    const result = await db.collection('categories').insertOne(category)
+
+    // On récupére la catégorie qui vient d'être enregistré
+    const insertedCategory = await db.collection('categories').findOne({
+      _id: mongodb.ObjectId(result.insertedId),
+    })
+
+    // Changement du status code pour être 201
+    reply.code(201)
+    // Ajouter un header http
+    reply.header('Inserted-Id', result.insertedId)
+
+    return insertedCategory
+  })
+
+  // Récupére les articles
+  app.get('/articles', () => [{ title: 'Mon premier article' }])
+
+  // Création d'un article
+  app.post('/articles', () => ({ status: 200 }))
+
+  // On lance le serveur sur le port 8080
+  app.listen(8080)
+}
+
+main()

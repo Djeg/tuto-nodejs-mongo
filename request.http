@@ -7,6 +7,9 @@ GET http://localhost:8080/categories
 ###
 
 POST http://localhost:8080/categories
+Content-Type: application/json
+
+{ "titre": "bricolage" }
 
 ###
 
@@ -15,3 +18,15 @@ GET http://localhost:8080/articles
 ###
 
 POST http://localhost:8080/articles
+
+###
+
+DELETE http://localhost:8080/categories/273723224628
+
+####
+
+PUT http://localhost:8080/categoires/2748232983
+
+###
+
+GET http://localhost:8080/categories?article=282973922
