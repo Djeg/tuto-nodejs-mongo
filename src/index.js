@@ -27,7 +27,12 @@ async function main() {
   })
 
   // Récupére les catégories
-  app.get('/categories', () => ['animale', 'nature', 'science', 'technologie'])
+  app.get('/categories', async () => {
+    // Récupération de toutes les categories
+    const categories = await db.collection('categories').find().toArray()
+
+    return categories
+  })
 
   // Création d'une catégorie
   app.post('/categories', async (request, reply) => {
@@ -50,10 +55,33 @@ async function main() {
   })
 
   // Récupére les articles
-  app.get('/articles', () => [{ title: 'Mon premier article' }])
+  app.get('/articles', async () => {
+    // Récupération des articles de la collection articles
+    const articles = await db.collection('articles').find().toArray()
+
+    // On retourne la liste des articles
+    return articles
+  })
 
   // Création d'un article
-  app.post('/articles', () => ({ status: 200 }))
+  app.post('/articles', async (request, reply) => {
+    // Nous récupérons l'article depuis le corps de la requête
+    const article = request.body
+
+    // enregistrement de l'article dans la base de données
+    const result = await db.collection('articles').insertOne(article)
+
+    // Récupération de l'article enregistré en base de données
+    const insertedArticle = await db.collection('articles').findOne({
+      _id: mongodb.ObjectId(result.insertedId),
+    })
+
+    // Nous spécifions un code HTTP 201 Created
+    reply.code(201)
+
+    // Nous retournons l'article nouvellement créé
+    return insertedArticle
+  })
 
   // On lance le serveur sur le port 8080
   app.listen(8080)
