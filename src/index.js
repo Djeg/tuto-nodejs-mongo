@@ -4,6 +4,8 @@ const fastify = require('fastify')
 const mongodb = require('mongodb')
 // On importe le plugin routes/home
 const home = require('./routes/home')
+// On importe le plugin routes/categories
+const categories = require('./routes/categories')
 
 async function main() {
   // Créer une application fastify.
@@ -28,50 +30,7 @@ async function main() {
   // On connécte le plugin grace à la fonction "register"
   // routes home à l'application
   app.register(home)
-
-  // Récupére les catégories
-  app.get('/categories', async () => {
-    // Récupération de toutes les categories
-    const categories = await db.collection('categories').find().toArray()
-
-    return categories
-  })
-
-  // Création d'une catégorie
-  app.post(
-    '/categories',
-    {
-      schema: {
-        body: {
-          type: 'object',
-          properties: {
-            title: {
-              type: 'string',
-            },
-          },
-          required: ['title'],
-        },
-      },
-    },
-    async (request, reply) => {
-      const category = request.body
-
-      // On insére la catégorie
-      const result = await db.collection('categories').insertOne(category)
-
-      // On récupére la catégorie qui vient d'être enregistré
-      const insertedCategory = await db.collection('categories').findOne({
-        _id: mongodb.ObjectId(result.insertedId),
-      })
-
-      // Changement du status code pour être 201
-      reply.code(201)
-      // Ajouter un header http
-      reply.header('Inserted-Id', result.insertedId)
-
-      return insertedCategory
-    }
-  )
+  app.register(categories)
 
   // Récupére les articles
   app.get('/articles', async () => {
