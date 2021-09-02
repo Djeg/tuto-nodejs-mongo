@@ -9,6 +9,11 @@ module.exports = async (app) => {
     return categories
   })
 
+  app.patch('/categories/:id', async (request) => {
+    // Je peux récupérer l'id en faisant :
+    request.params.id
+  })
+
   // Création d'une catégorie
   app.post(
     '/categories',

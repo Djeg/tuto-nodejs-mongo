@@ -13,6 +13,13 @@ Content-Type: application/json
 
 ###
 
+PATCH http://localhost:8080/categories/612f3b086e0b57ef8d62922a
+Content-Type: application/json
+
+{ "title": "brico" }
+
+###
+
 GET http://localhost:8080/articles
 
 ###
