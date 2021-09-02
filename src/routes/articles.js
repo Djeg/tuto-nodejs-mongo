@@ -10,6 +10,50 @@ module.exports = async (app) => {
     return articles
   })
 
+  // Récuparation d'une seule catégorie
+  app.get('/articles/:id', async (request, reply) => {
+    try {
+      const article = await app.db.collection('articles').findOne({
+        _id: mongodb.ObjectId(request.params.id),
+      })
+
+      if (!article) {
+        throw Error('The article does not exists')
+      }
+
+      return article
+    } catch (error) {
+      reply.code(404)
+
+      return { error: error.message }
+    }
+  })
+
+  // Suppression d'une catégorie
+  app.delete('/articles/:id', async (request, reply) => {
+    try {
+      const article = await app.db.collection('articles').findOne({
+        _id: mongodb.ObjectId(request.params.id),
+      })
+
+      if (!article) {
+        throw Error('This article does not exists')
+      }
+
+      await app.db.collection('articles').deleteOne({
+        _id: mongodb.ObjectId(request.params.id),
+      })
+
+      reply.code(205)
+
+      return article
+    } catch (error) {
+      reply.code(404)
+
+      return { error: error.message }
+    }
+  })
+
   // Modification d'un article par son _id
   app.patch(
     '/articles/:id',
