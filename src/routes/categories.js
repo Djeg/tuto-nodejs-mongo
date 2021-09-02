@@ -2,12 +2,35 @@ const mongodb = require('mongodb')
 
 module.exports = async (app) => {
   // Récupére les catégories
-  app.get('/categories', async () => {
-    // Récupération de toutes les categories
-    const categories = await app.db.collection('categories').find().toArray()
+  app.get(
+    '/categories',
+    {
+      schema: {
+        querystring: {
+          type: 'object',
+          properties: {
+            limit: {
+              type: 'number',
+            },
+            skip: {
+              type: 'number',
+            },
+          },
+        },
+      },
+    },
+    async (request) => {
+      // Récupération de toutes les categories
+      const categories = await app.db
+        .collection('categories')
+        .find()
+        .limit(request.query.limit ?? Number(process.env.DEFAULT_LIMIT))
+        .skip(request.query.skip ?? 0)
+        .toArray()
 
-    return categories
-  })
+      return categories
+    }
+  )
 
   // Récuparation d'une seule catégorie
   app.get('/categories/:id', async (request, reply) => {

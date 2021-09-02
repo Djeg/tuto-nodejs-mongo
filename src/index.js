@@ -51,14 +51,6 @@ async function main() {
   app.register(categories)
   app.register(articles)
 
-  /**
-   * 1. Créer les routes suivantes
-   *    - GET /categories/:id
-   *    - DELETE /categories/:id
-   *    - GET /articles/:id
-   *    - DELETE /articles/:id
-   */
-
   // On lance le serveur sur le port 8080
   app.listen(process.env.PORT, process.env.HOST)
 }

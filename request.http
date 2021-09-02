@@ -2,7 +2,7 @@ GET http://localhost:8080
 
 ###
 
-GET http://localhost:8080/categories
+GET http://localhost:8080/categories?limit=5&skip=5
 
 ###
 
