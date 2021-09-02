@@ -5,9 +5,42 @@ module.exports = async (app) => {
   app.get('/articles', async () => {
     // Récupération des articles de la collection articles
     const articles = await app.db.collection('articles').find().toArray()
+    // Ceci est un tableaux qui contiendra nos articles avec leurs
+    // categories
+    const data = []
+
+    for (article of articles) {
+      // Si je na'ai pas de category ID je retourne
+      // l'article tel quel
+      if (!article.categoryId) {
+        data.push(article)
+
+        continue
+      }
+
+      try {
+        // Nous récupérons la catégory de l'article
+        const category = await app.db.collection('categories').findOne({
+          _id: mongodb.ObjectId(article.categoryId),
+        })
+
+        // Si elle n'éxiste nous arrétons l'éxécution et
+        // lancons le block "catch"
+        if (!category) {
+          throw Error()
+        }
+
+        // Ici, on rajoute la category à notre objet JSON d'article
+        data.push({ ...article, category })
+      } catch (e) {
+        data.push(article)
+
+        continue
+      }
+    }
 
     // On retourne la liste des articles
-    return articles
+    return data
   })
 
   // Récuparation d'une seule catégorie

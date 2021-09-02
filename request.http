@@ -39,7 +39,7 @@ Content-Type: application/json
   "title": "Mon premier article",
   "description": "Description",
   "content": "Lorem ipsum",
-  "categoryId": "612f423b58ca142762c460b3"
+  "categoryId": "612f423b58ca142762a460b3"
 }
 
 ###
