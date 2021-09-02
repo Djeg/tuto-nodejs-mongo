@@ -40,8 +40,10 @@ async function main() {
    */
 
   /**
-   * 1. Créer une route PATCH /categories dans le plugin
+   * 1. Créer une route PATCH /categories/:id dans le plugin
    *    src/routes/categories
+   *    (Vous pouvez récupérer l'id dans votre
+   *    route grace à request.params.id)
    * 2. Attaché un schéma pour mettre à jour une catégorie
    * 3. Mettre à jour la catégorie dans mongodb
    * 4. Tester la route avec le fichier request.http
