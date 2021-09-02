@@ -107,6 +107,9 @@ module.exports = async (app) => {
             content: {
               type: 'string',
             },
+            categoryId: {
+              type: 'string',
+            },
           },
         },
       },
@@ -114,6 +117,25 @@ module.exports = async (app) => {
     async (request, reply) => {
       // Nous récupérons l'article depuis le corps de la requête
       const article = request.body
+
+      // Nous testons si l'article est lié à une catégorie
+      if (article.categoryId) {
+        try {
+          // Nous comptons le nombre de catégorie avec l'id spécifié
+          const exists = await app.db.collection('categories').countDocuments({
+            _id: mongodb.ObjectId(article.categoryId),
+          })
+
+          // si il n'y a pas de catégorie
+          if (!exists) {
+            throw Error('Category not found')
+          }
+        } catch (e) {
+          reply.code(400)
+
+          throw Error(e.message)
+        }
+      }
 
       // enregistrement de l'article dans la base de données
       const result = await app.db.collection('articles').insertOne(article)

@@ -38,7 +38,8 @@ Content-Type: application/json
 {
   "title": "Mon premier article",
   "description": "Description",
-  "content": "Lorem ipsum"
+  "content": "Lorem ipsum",
+  "categoryId": "612f423b58ca142762c460b3"
 }
 
 ###
