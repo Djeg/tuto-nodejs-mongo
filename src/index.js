@@ -1,3 +1,10 @@
+// On importe la librairie dotenv, qui nous permet
+// de lire le fichier de configuration ".env"
+const dotenv = require('dotenv')
+
+// On demande à dotenv de lire notre fichier ".env"
+dotenv.config()
+
 // On importe la librairie fastify
 const fastify = require('fastify')
 // On importe la librairie mongodb
@@ -16,9 +23,7 @@ async function main() {
   const app = fastify({ logger: true })
 
   // Se connécter au cluster
-  const connection = await mongodb.MongoClient.connect(
-    'mongodb+srv://blog:blog@cluster0.78yvz.mongodb.net/blog?retryWrites=true&w=majority'
-  )
+  const connection = await mongodb.MongoClient.connect(process.env.MONGO_URL)
 
   // On récupére la base de données (Cette fonction N'EST PAS ASYNCHRONE)
   const db = connection.db('blog')
