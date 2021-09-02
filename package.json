@@ -23,6 +23,7 @@
   "dependencies": {
     "dotenv": "^10.0.0",
     "fastify": "^3.20.2",
+    "fastify-swagger": "^4.9.1",
     "mongodb": "^4.1.1",
     "nodemon": "^2.0.12"
   }

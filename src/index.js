@@ -36,6 +36,17 @@ async function main() {
 
   // On connécte le plugin grace à la fonction "register"
   // routes home à l'application
+  app.register(require('fastify-swagger'), {
+    routePrefix: '/api/doc',
+    exposeRoute: true,
+    openApi: {
+      servers: [
+        {
+          url: 'http://localhost:8080',
+        },
+      ],
+    },
+  })
   app.register(home)
   app.register(categories)
   app.register(articles)
