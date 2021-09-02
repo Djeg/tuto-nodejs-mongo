@@ -9,10 +9,37 @@ module.exports = async (app) => {
     return categories
   })
 
-  app.patch('/categories/:id', async (request) => {
-    // Je peux récupérer l'id en faisant :
-    request.params.id
-  })
+  // On modifie une catégorie
+  app.patch(
+    '/categories/:id',
+    {
+      schema: {
+        body: {
+          type: 'object',
+          required: ['title'],
+          properties: {
+            title: {
+              type: 'string',
+            },
+          },
+        },
+      },
+    },
+    async (request) => {
+      const result = await app.db
+        .collection('categories')
+        .updateOne(
+          { _id: mongodb.ObjectId(request.params.id) },
+          { $set: request.body }
+        )
+
+      const category = await app.db.collection('categories').findOne({
+        _id: mongodb.ObjectId(request.params.id),
+      })
+
+      return category
+    }
+  )
 
   // Création d'une catégorie
   app.post(

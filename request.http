@@ -13,10 +13,10 @@ Content-Type: application/json
 
 ###
 
-PATCH http://localhost:8080/categories/612f3b086e0b57ef8d62922a
+PATCH http://localhost:8080/categories/61307c3792357d097150b1ab
 Content-Type: application/json
 
-{ "title": "brico" }
+{ "title": "brico test" }
 
 ###
 

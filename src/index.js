@@ -36,13 +36,6 @@ async function main() {
   app.register(articles)
 
   /**
-   * 1. Creer un plugin dans src/routes/articles.js
-   * 2. Brancher le plugin dans src/index.js
-   * 3. Couper / Coller et retoucher le code des routes:
-   *    get /articles, post /articles
-   */
-
-  /**
    * 1. Créer une route PATCH /categories/:id dans le plugin
    *    src/routes/categories
    *    (Vous pouvez récupérer l'id dans votre
