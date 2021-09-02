@@ -9,6 +9,50 @@ module.exports = async (app) => {
     return categories
   })
 
+  // Récuparation d'une seule catégorie
+  app.get('/categories/:id', async (request, reply) => {
+    try {
+      const category = await app.db.collection('categories').findOne({
+        _id: mongodb.ObjectId(request.params.id),
+      })
+
+      if (!category) {
+        throw Error('The category does not exists')
+      }
+
+      return category
+    } catch (error) {
+      reply.code(404)
+
+      return { error: error.message }
+    }
+  })
+
+  // Suppression d'une catégorie
+  app.delete('/categories/:id', async (request, reply) => {
+    try {
+      const category = await app.db.collection('categories').findOne({
+        _id: mongodb.ObjectId(request.params.id),
+      })
+
+      if (!category) {
+        throw Error('This category does not exists')
+      }
+
+      await app.db.collection('categories').deleteOne({
+        _id: mongodb.ObjectId(request.params.id),
+      })
+
+      reply.code(205)
+
+      return category
+    } catch (error) {
+      reply.code(404)
+
+      return { error: error.message }
+    }
+  })
+
   // On modifie une catégorie
   app.patch(
     '/categories/:id',

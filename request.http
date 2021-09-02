@@ -6,6 +6,14 @@ GET http://localhost:8080/categories
 
 ###
 
+GET http://localhost:8080/categories/612f39d66e0b57ef8d629227
+
+###
+
+DELETE http://localhost:8080/categories/612f39d66e0b57ef8d629227
+
+###
+
 POST http://localhost:8080/categories
 Content-Type: application/json
 
