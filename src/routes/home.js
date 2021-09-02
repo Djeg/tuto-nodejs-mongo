@@ -1,4 +1,3 @@
-console.log(process.env.MONGO_URL)
 // Un plugin fastify est un fichier javascript
 // qui exporte une fonction asynchrone recevant
 // l'application en premier paramètre

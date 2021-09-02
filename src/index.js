@@ -60,7 +60,7 @@ async function main() {
    */
 
   // On lance le serveur sur le port 8080
-  app.listen(8080)
+  app.listen(process.env.PORT, process.env.HOST)
 }
 
 main()
