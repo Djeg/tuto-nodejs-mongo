@@ -10,6 +10,41 @@ module.exports = async (app) => {
     return articles
   })
 
+  // Modification d'un article par son _id
+  app.patch(
+    '/articles/:id',
+    {
+      schema: {
+        body: {
+          type: 'object',
+          properties: {
+            title: {
+              type: 'string',
+            },
+            description: {
+              type: 'string',
+            },
+            content: {
+              type: 'string',
+            },
+          },
+        },
+      },
+    },
+    async (request) => {
+      await app.db
+        .collection('articles')
+        .updateOne(
+          { _id: mongodb.ObjectId(request.params.id) },
+          { $set: request.body }
+        )
+
+      return app.db.collection('articles').findOne({
+        _id: mongodb.ObjectId(request.params.id),
+      })
+    }
+  )
+
   // Création d'un article
   app.post(
     '/articles',

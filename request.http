@@ -32,3 +32,12 @@ Content-Type: application/json
   "description": "Description",
   "content": "Lorem ipsum"
 }
+
+###
+
+PATCH http://localhost:8080/articles/612f51d21dae63dd4e62ce52
+Content-Type: application/json
+
+{
+  "description": "Nouvelle Description"
+}
