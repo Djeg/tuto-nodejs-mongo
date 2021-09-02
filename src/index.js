@@ -32,6 +32,31 @@ async function main() {
   app.register(home)
   app.register(categories)
 
+  /**
+   * 1. Creer un plugin dans src/routes/articles.js
+   * 2. Brancher le plugin dans src/index.js
+   * 3. Couper / Coller et retoucher le code des routes:
+   *    get /articles, post /articles
+   */
+
+  /**
+   * 1. Créer une route PATCH /categories dans le plugin
+   *    src/routes/categories
+   * 2. Attaché un schéma pour mettre à jour une catégorie
+   * 3. Mettre à jour la catégorie dans mongodb
+   * 4. Tester la route avec le fichier request.http
+   *
+   * 5. Faire la même chose pour PATCH /articles
+   */
+
+  /**
+   * 1. Créer les routes suivantes
+   *    - GET /categories/:id
+   *    - DELETE /categories/:id
+   *    - GET /articles/:id
+   *    - DELETE /articles/:id
+   */
+
   // Récupére les articles
   app.get('/articles', async () => {
     // Récupération des articles de la collection articles
