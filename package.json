@@ -3,13 +3,15 @@
   "version": "1.0.0",
   "description": "Ce projet contient un tutorielle pour nodejs et mongodb.",
   "main": "src/index.js",
+  "type": "module",
   "directories": {
     "doc": "doc"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon src/index.js",
-    "setup-database": "node src/setup-database.js"
+    "setup-database": "node src/setup-database.mjs",
+    "new-module": "node doc/new-module.js"
   },
   "repository": {
     "type": "git",

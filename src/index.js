@@ -1,40 +1,27 @@
 // On importe la librairie dotenv, qui nous permet
 // de lire le fichier de configuration ".env"
-const dotenv = require('dotenv')
+import dotenv from 'dotenv'
 
 // On demande à dotenv de lire notre fichier ".env"
 dotenv.config()
 
-/**
- * Exo Authentification
- * 1. Installer le plugin "fastify-jwt" (npm install fastify-jwt)
- * 2. Dans index.js, nous importons (avec require) le plugin fastify-jwt
- * 3. Dans index.js, nous enregistrons le plugin:
- *    app.register(fastifyJwt, { secret: 'clefs secrete' })
- * 4. Dans routes/users.js, créer la route POST /users/token qui recoie
- *    dans le body les données suivante :
- *    { email: string, password: string }
- * 5. Récupérer l'utilisateur qui correspond à l'email et au mot de passe
- *    (gérer le cas ou les données ne sont pas correct)
- * 6. Retourner l'objet JSON suivant :
- *    { token: app.jwt.sign(user) }
- * 7. Tester avec le fichier request.http
- */
-
 // On importe la librairie fastify
-const fastify = require('fastify')
+import fastify from 'fastify'
 // On importe la librairie mongodb
-const mongodb = require('mongodb')
+import * as mongodb from 'mongodb'
 // On importe le plugin fastify-jwt
-const fastifyJwt = require('fastify-jwt')
+import fastifyJwt from 'fastify-jwt'
+// On importe le plugin fastify swagger pour générer
+// automatiquement une documentation de l'api
+import fastifySwagger from 'fastify-swagger'
 // On importe le plugin routes/home
-const home = require('./routes/home')
+import home from './routes/home.js'
 // On importe le plugin routes/categories
-const categories = require('./routes/categories')
+import categories from './routes/categories.js'
 // On importe le plugin routes/articles
-const articles = require('./routes/articles')
+import articles from './routes/articles.js'
 // On importe le plugin routes/users
-const users = require('./routes/users')
+import users from './routes/users.js'
 
 async function main() {
   // Créer une application fastify.
@@ -56,7 +43,7 @@ async function main() {
 
   // On connécte le plugin grace à la fonction "register"
   // routes home à l'application
-  app.register(require('fastify-swagger'), {
+  app.register(fastifySwagger, {
     routePrefix: '/api/doc',
     exposeRoute: true,
     openApi: {

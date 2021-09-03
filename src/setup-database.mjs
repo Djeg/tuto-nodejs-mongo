@@ -1,7 +1,8 @@
-const dotenv = require('dotenv')
+import dotenv from 'dotenv'
+
 dotenv.config()
 
-const mongodb = require('mongodb')
+import * as mongodb from 'mongodb'
 
 async function main() {
   console.info('Connecting to mongodb ...')

@@ -1,6 +1,6 @@
-const mongodb = require('mongodb')
+import * as mongodb from 'mongodb'
 
-module.exports = async (app) => {
+export default async (app) => {
   // Récupére les catégories
   app.get(
     '/categories',
