@@ -46,12 +46,22 @@ async function main() {
   app.register(fastifySwagger, {
     routePrefix: '/api/doc',
     exposeRoute: true,
-    openApi: {
+    openapi: {
       servers: [
         {
           url: 'http://localhost:8080',
         },
       ],
+      components: {
+        securitySchemes: {
+          bearerAuth: {
+            type: 'http',
+            scheme: 'bearer',
+            bearerFormat: 'JWT',
+          },
+        },
+      },
+      security: [{ bearerAuth: [] }],
     },
   })
   app.register(fastifyJwt, { secret: 'secret' })
