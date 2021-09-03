@@ -61,7 +61,7 @@ async function main() {
   app.register(users)
 
   app.addHook('onRequest', async (request, reply) => {
-    if (/^\/users/.test(request.url)) {
+    if (/^\/users/.test(request.url) || /^\/api\/doc/.test(request.url)) {
       return
     }
 
