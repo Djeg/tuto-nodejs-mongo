@@ -25,6 +25,8 @@ dotenv.config()
 const fastify = require('fastify')
 // On importe la librairie mongodb
 const mongodb = require('mongodb')
+// On importe le plugin fastify-jwt
+const fastifyJwt = require('fastify-jwt')
 // On importe le plugin routes/home
 const home = require('./routes/home')
 // On importe le plugin routes/categories
@@ -65,6 +67,7 @@ async function main() {
       ],
     },
   })
+  app.register(fastifyJwt, { secret: 'secret' })
   app.register(home)
   app.register(categories)
   app.register(articles)

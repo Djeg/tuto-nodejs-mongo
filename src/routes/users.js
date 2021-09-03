@@ -49,4 +49,44 @@ module.exports = async (app) => {
   app.get('/users', async () => {
     return app.db.collection('users').find().toArray()
   })
+
+  // Création d'un token
+  app.post(
+    '/users/token',
+    {
+      schema: {
+        body: {
+          type: 'object',
+          required: ['email', 'password'],
+          properties: {
+            email: {
+              type: 'string',
+            },
+            password: {
+              type: 'string',
+            },
+          },
+        },
+      },
+    },
+    async (request, reply) => {
+      const user = await app.db.collection('users').findOne({
+        email: request.body.email,
+      })
+
+      if (!user) {
+        reply.code(401)
+
+        return { message: 'Invalid email' }
+      }
+
+      if (user.password !== request.body.password) {
+        reply.code(401)
+
+        return { message: 'Invalid password' }
+      }
+
+      return { token: app.jwt.sign(user) }
+    }
+  )
 }

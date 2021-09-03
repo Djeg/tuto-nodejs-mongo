@@ -3,6 +3,7 @@ GET http://localhost:8080
 ###
 
 GET http://localhost:8080/categories?limit=5&skip=5
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTMxZTQxMGFjMDRkY2Y0ZjQ5MDRlMDUiLCJlbWFpbCI6ImpvaG5AbWFpbC5jb20iLCJwYXNzd29yZCI6ImpvaG4iLCJpYXQiOjE2MzA2NjUwOTR9.Pd2Ezt-YNAAzMEeRshfZsa6tfU29pKRdACA0TafcY2I
 
 ###
 
@@ -54,6 +55,16 @@ Content-Type: application/json
 ###
 
 POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "email": "john@mail.com",
+  "password": "john"
+}
+
+###
+
+POST http://localhost:8080/users/token
 Content-Type: application/json
 
 {

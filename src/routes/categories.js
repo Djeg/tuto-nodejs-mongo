@@ -20,6 +20,9 @@ module.exports = async (app) => {
       },
     },
     async (request) => {
+      // Demande à ce que l'utilisateur soit authentifié
+      await request.jwtVerify()
+
       // Récupération de toutes les categories
       const categories = await app.db
         .collection('categories')
