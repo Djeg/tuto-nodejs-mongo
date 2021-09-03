@@ -5,6 +5,21 @@ const dotenv = require('dotenv')
 // On demande à dotenv de lire notre fichier ".env"
 dotenv.config()
 
+/**
+ * 1. Créer un plugin dans src/routes/users.js
+ * 2. Dans ce plugin ajouter la route : POST /users
+ *    elle accepte l'objet suivant :
+ *      { "email": "string", "password": "string" }
+ *    Elle enregistre l'utilisatut dans la base de données
+ *    mongo à l'intérieur de la collection 'users'
+ * 3. Brancher le plugin dans src/index.js
+ * 4. Tester la route POST /users dans le fichier request.http
+ *
+ *
+ * Exo 2
+ * 1. Créer la route GET /users
+ */
+
 // On importe la librairie fastify
 const fastify = require('fastify')
 // On importe la librairie mongodb
