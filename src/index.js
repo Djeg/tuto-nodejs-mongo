@@ -22,7 +22,6 @@ import categories from './routes/categories.js'
 import articles from './routes/articles.js'
 // On importe le plugin routes/users
 import users from './routes/users.js'
-import colors from 'colors'
 
 async function main() {
   // Créer une application fastify.
