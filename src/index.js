@@ -6,19 +6,19 @@ const dotenv = require('dotenv')
 dotenv.config()
 
 /**
- * Exo 1
- * 1. Créer un plugin dans src/routes/users.js
- * 2. Dans ce plugin ajouter la route : POST /users
- *    elle accepte l'objet suivant :
- *      { "email": "string", "password": "string" }
- *    Elle enregistre l'utilisateur dans la base de données
- *    mongo à l'intérieur de la collection 'users'
- * 3. Brancher le plugin dans src/index.js
- * 4. Tester la route POST /users dans le fichier request.http
- *
- *
- * Exo 2
- * 1. Créer la route GET /users
+ * Exo Authentification
+ * 1. Installer le plugin "fastify-jwt" (npm install fastify-jwt)
+ * 2. Dans index.js, nous importons (avec require) le plugin fastify-jwt
+ * 3. Dans index.js, nous enregistrons le plugin:
+ *    app.register(fastifyJwt, { secret: 'clefs secrete' })
+ * 4. Dans routes/users.js, créer la route POST /users/token qui recoie
+ *    dans le body les données suivante :
+ *    { email: string, password: string }
+ * 5. Récupérer l'utilisateur qui correspond à l'email et au mot de passe
+ *    (gérer le cas ou les données ne sont pas correct)
+ * 6. Retourner l'objet JSON suivant :
+ *    { token: app.jwt.sign(user) }
+ * 7. Tester avec le fichier request.http
  */
 
 // On importe la librairie fastify
