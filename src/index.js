@@ -6,11 +6,12 @@ const dotenv = require('dotenv')
 dotenv.config()
 
 /**
+ * Exo 1
  * 1. Créer un plugin dans src/routes/users.js
  * 2. Dans ce plugin ajouter la route : POST /users
  *    elle accepte l'objet suivant :
  *      { "email": "string", "password": "string" }
- *    Elle enregistre l'utilisatut dans la base de données
+ *    Elle enregistre l'utilisateur dans la base de données
  *    mongo à l'intérieur de la collection 'users'
  * 3. Brancher le plugin dans src/index.js
  * 4. Tester la route POST /users dans le fichier request.http
@@ -30,6 +31,8 @@ const home = require('./routes/home')
 const categories = require('./routes/categories')
 // On importe le plugin routes/articles
 const articles = require('./routes/articles')
+// On importe le plugin routes/users
+const users = require('./routes/users')
 
 async function main() {
   // Créer une application fastify.
@@ -65,6 +68,7 @@ async function main() {
   app.register(home)
   app.register(categories)
   app.register(articles)
+  app.register(users)
 
   // On lance le serveur sur le port 8080
   app.listen(process.env.PORT, process.env.HOST)

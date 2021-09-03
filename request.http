@@ -50,3 +50,17 @@ Content-Type: application/json
 {
   "description": "Nouvelle Description"
 }
+
+###
+
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "email": "john@mail.com",
+  "password": "john"
+}
+
+###
+
+GET http://localhost:8080/users
