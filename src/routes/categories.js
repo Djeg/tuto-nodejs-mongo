@@ -23,6 +23,9 @@ export default async (app) => {
       // Demande à ce que l'utilisateur soit authentifié
       await request.jwtVerify()
 
+      // récupérer l'utilisateur ?
+      console.log(request.user)
+
       // Récupération de toutes les categories
       const categories = await app.db
         .collection('categories')

@@ -22,6 +22,7 @@ import categories from './routes/categories.js'
 import articles from './routes/articles.js'
 // On importe le plugin routes/users
 import users from './routes/users.js'
+import colors from 'colors'
 
 async function main() {
   // Créer une application fastify.
@@ -59,6 +60,20 @@ async function main() {
   app.register(categories)
   app.register(articles)
   app.register(users)
+
+  app.addHook('onRequest', async (request, reply) => {
+    if (/^\/users/.test(request.url)) {
+      return
+    }
+
+    try {
+      await request.jwtVerify()
+    } catch (e) {
+      reply.code(401)
+
+      reply.send({ message: 'You must be authenticated' })
+    }
+  })
 
   // On lance le serveur sur le port 8080
   app.listen(process.env.PORT, process.env.HOST)

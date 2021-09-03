@@ -9,7 +9,7 @@ export default async (app) => {
     // categories
     const data = []
 
-    for (article of articles) {
+    for (let article of articles) {
       // Si je na'ai pas de category ID je retourne
       // l'article tel quel
       if (!article.categoryId) {
