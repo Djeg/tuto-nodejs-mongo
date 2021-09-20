@@ -25,7 +25,8 @@ async function start() {
   /**
    * On route de test, pour dire bonjour
    */
-  app.get('/hello', async () => {
+  app.get('/hello', async (/*request*/) => {
+    //request.body.title
     return 'Hello tout le monde'
   })
 
