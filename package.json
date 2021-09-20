@@ -1,0 +1,23 @@
+{
+  "name": "tuto-nodejs-mongo",
+  "version": "1.0.0",
+  "description": "Ce projet contient un tutorielle pour nodejs et mongodb.",
+  "main": "./src/index.js",
+  "type": "module",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Djeg/tuto-nodejs-mongo.git"
+  },
+  "author": "David Jegat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Djeg/tuto-nodejs-mongo/issues"
+  },
+  "homepage": "https://github.com/Djeg/tuto-nodejs-mongo#readme"
+}
