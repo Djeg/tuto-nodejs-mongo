@@ -30,7 +30,7 @@ async function start() {
   })
 
   /**
-   * On route de test, pour dire bonjour
+   * On route de test, pour retourner un utilisateur
    */
   app.get('/user', async () => {
     return {
