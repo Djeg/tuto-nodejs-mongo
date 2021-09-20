@@ -12,6 +12,9 @@ Vous pouvez aussi suivre ainsi que copier coller
 le code durant toute la formation sur ce lien :
 https://github1s.com/Djeg/tuto-nodejs-mongo
 
+Si vous le souhaiter il éxsiste des slides de révision
+concernant javascript [juste ici !](https://slides.com/davidjegat-1/javascript-jquery/fullscreen)
+
 ## Les prérequis
 
 Afin de suivre la formation et d'avoir tout les outils
