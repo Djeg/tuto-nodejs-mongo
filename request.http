@@ -17,7 +17,7 @@ GET http://localhost:9090/categories
 POST http://localhost:9090/categories
 content-type: application/json
 
-{ "title": "Ma catégorie" }
+{ "title": "Technologie" }
 
 ###
 

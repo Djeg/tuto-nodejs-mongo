@@ -2,15 +2,29 @@
 // const fastify = require('fastify')
 
 /**
- * On importe la librairie fastify
+ * On importe la librairie fastify et mongodb
  */
 import fastify from 'fastify'
+import mongo from 'mongodb'
 
 /**
  * On créé une fonction de démarrage asynchrone afin
  * de pouvoir utiliser le mot clefs await
  */
 async function start() {
+  /**
+   * Nous nous connéctons au cluster mongodb
+   * (à la machine qui contient mongodb)
+   */
+  const client = await mongo.MongoClient.connect(
+    'mongodb+srv://blog:blog@cluster0.odhgb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+  )
+
+  /**
+   * Nous récupérons une référence vers une base de données
+   */
+  const db = client.db('blog')
+
   /**
    * Création d'une application fastify qui nous
    * permet de démarrer un (logical) server http
@@ -45,16 +59,41 @@ async function start() {
    * Récupération des categories.
    */
   app.get('/categories', async () => {
-    return ['animale', 'nature', 'science', 'technologie']
+    /**
+     * Ici nous récupérons l'ensemble des catégories
+     * dans un tableaux
+     */
+    const categories = await db.collection('categories').find().toArray()
+
+    return categories
   })
 
   /**
    * Création d'une category
    */
   app.post('/categories', async (request) => {
-    console.log(request.body.title)
+    /**
+     * Ici on insére une catégorie dans mongodb
+     *
+     * result ici est un InsertOneResult, un objet
+     * qui contient 2 propriétés:
+     * - acknownledged : Un boolean, true si l'insertion c'est
+     *   bien passé, false sinon
+     * - insertedId : L'ID généré par mongodb pour notre category
+     */
+    const result = await db.collection('categories').insertOne(request.body)
 
-    return { status: 200 }
+    /**
+     * On récupére la catégorie qui vient d'être inséré
+     */
+    const category = await db.collection('categories').findOne({
+      _id: mongo.ObjectId(result.insertedId),
+    })
+
+    /**
+     * On renvoie la category dans la réponse http
+     */
+    return category
   })
 
   /**

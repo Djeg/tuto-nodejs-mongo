@@ -34,7 +34,7 @@
 2. Vous pouvez utiliser le fichier `request.http`
    afin de tester la requète
 
-# 1. Insérer et récupérer des categories
+# 1. Insérer et récupérer des articles
 
 ## Exo1
 
@@ -42,6 +42,14 @@
    `POST /articles`, utiliser la base de données
    pour enregistrer un article avec les données
    suivante : `titre: string, description: string, content: string`
+2. Vous pouvez tester en utilisant le fichier
+   `request.http`
+
+## Exo1.2
+
+1. Dans le fichier src/index.js, dans la route
+   `GETc /articles`, utiliser la base de données
+   pour récupérer tout les articles
 2. Vous pouvez tester en utilisant le fichier
    `request.http`
 
