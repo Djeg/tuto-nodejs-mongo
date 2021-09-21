@@ -25,6 +25,10 @@ GET http://localhost:9090/articles
 
 ###
 
+GET http://localhost:9090/articles/2
+
+###
+
 POST http://localhost:9090/articles
 content-type: application/json
 

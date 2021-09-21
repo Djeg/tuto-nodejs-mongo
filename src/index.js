@@ -61,7 +61,26 @@ async function start() {
    * Récuparation des articles.
    */
   app.get('/articles', async () => {
-    return [{ title: 'Mon premier article' }]
+    return [
+      {
+        id: 1,
+        title: 'Mon premier article',
+      },
+      { id: 2, title: 'Mon second article' },
+      { id: 3, title: 'Mon troisième article' },
+    ]
+  })
+
+  /**
+   * Récupération d'un seul article
+   */
+  app.get('/articles/:id', async (request) => {
+    const id = request.params.id
+
+    return {
+      id: id,
+      title: 'test',
+    }
   })
 
   /**
