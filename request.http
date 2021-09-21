@@ -7,3 +7,25 @@ GET http://localhost:9090/hello
 ###
 
 GET http://localhost:9090/user
+
+###
+
+GET http://localhost:9090/categories
+
+###
+
+POST http://localhost:9090/categories
+content-type: application/json
+
+{ "title": "Ma catégorie" }
+
+###
+
+GET http://localhost:9090/articles
+
+###
+
+POST http://localhost:9090/articles
+content-type: application/json
+
+{ "title": "Mon article" }

@@ -41,6 +41,38 @@ async function start() {
     }
   })
 
+  /**
+   * Récupération des categories.
+   */
+  app.get('/categories', async () => {
+    return ['animale', 'nature', 'science', 'technologie']
+  })
+
+  /**
+   * Création d'une category
+   */
+  app.post('/categories', async (request) => {
+    console.log(request.body.title)
+
+    return { status: 200 }
+  })
+
+  /**
+   * Récuparation des articles.
+   */
+  app.get('/articles', async () => {
+    return [{ title: 'Mon premier article' }]
+  })
+
+  /**
+   * Création d'un article
+   */
+  app.post('/articles', async (request) => {
+    console.log(request.body.title)
+
+    return { status: 200 }
+  })
+
   console.log('Démarrage du server sur le port 9090')
   /**
    * On démarre le server sur le port 9090. app.listen
