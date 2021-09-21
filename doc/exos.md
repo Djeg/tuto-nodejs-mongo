@@ -39,18 +39,21 @@
 ## Exo1
 
 1. Dans le fichier src/index.js, dans la route
-   `POST /articles`, utiliser la base de données
-   pour enregistrer un article avec les données
-   suivante : `titre: string, description: string, content: string`
+   `GET /articles`, utiliser la base de données
+   pour récupérer tout les articles puis les retourner
 2. Vous pouvez tester en utilisant le fichier
    `request.http`
 
 ## Exo1.2
 
 1. Dans le fichier src/index.js, dans la route
-   `GETc /articles`, utiliser la base de données
-   pour récupérer tout les articles
-2. Vous pouvez tester en utilisant le fichier
+   `POST /articles`, utiliser la base de données
+   pour enregistrer un article avec les données
+   suivante : `titre: string, description: string, content: string`
+2. Récupérer depuis la base de données l'article tout juste
+   inséré
+3. Retourner l'article
+4. Vous pouvez tester en utilisant le fichier
    `request.http`
 
 ## Exo2

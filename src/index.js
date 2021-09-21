@@ -100,14 +100,9 @@ async function start() {
    * Récuparation des articles.
    */
   app.get('/articles', async () => {
-    return [
-      {
-        id: 1,
-        title: 'Mon premier article',
-      },
-      { id: 2, title: 'Mon second article' },
-      { id: 3, title: 'Mon troisième article' },
-    ]
+    const articles = await db.collection('articles').find().toArray()
+
+    return articles
   })
 
   /**
@@ -126,9 +121,13 @@ async function start() {
    * Création d'un article
    */
   app.post('/articles', async (request) => {
-    console.log(request.body.title)
+    const result = await db.collection('articles').insertOne(request.body)
 
-    return { status: 200 }
+    const article = await db.collection('articles').findOne({
+      _id: mongo.ObjectId(result.insertedId),
+    })
+
+    return article
   })
 
   console.log('Démarrage du server sur le port 9090')
