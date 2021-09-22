@@ -6,8 +6,8 @@
  */
 import fastify from 'fastify'
 import mongo from 'mongodb'
-import S from 'fluent-json-schema'
 import helloPlugin from './plugins/hello.js'
+import categoriesPlugin from './plugins/categories.js'
 
 /**
  * On créé une fonction de démarrage asynchrone afin
@@ -39,9 +39,20 @@ async function start() {
   })
 
   /**
-   * Branchement du plugin hello
+   * Nous "décorons" notre applicatiion:
+   * Nous ajoutons à l'intérieur de notre application,
+   * une propriété "db" attaché à la constante db.
+   *
+   * Graçe à cette décoration, nos plugins peuvent
+   * accéder à la DB très simplement : app.db
+   */
+  app.decorate('db', db)
+
+  /**
+   * Branchement du plugin hello, categories
    */
   app.register(helloPlugin)
+  app.register(categoriesPlugin)
 
   /**
    * On route de test, pour retourner un utilisateur
@@ -53,72 +64,6 @@ async function start() {
       email: 'john@mail.com',
     }
   })
-
-  /**
-   * Création d'un schema pour les nouvelles catégorie
-   */
-  const newCategorySchema = S.object()
-    .prop('title', S.string().required())
-    .additionalProperties(false)
-
-  /**
-   * Création d'un schéma pour les catégorie
-   */
-  const categorySchema = newCategorySchema.prop('_id', S.string().required())
-
-  /**
-   * Récupération des categories.
-   */
-  app.get('/categories', async () => {
-    /**
-     * Ici nous récupérons l'ensemble des catégories
-     * dans un tableaux
-     */
-    const categories = await db.collection('categories').find().toArray()
-
-    return categories
-  })
-
-  /**
-   * Création d'une category
-   */
-  app.post(
-    '/categories',
-    {
-      schema: {
-        response: {
-          201: categorySchema,
-        },
-        body: newCategorySchema,
-      },
-    },
-    async (request, reply) => {
-      /**
-       * Ici on insére une catégorie dans mongodb
-       *
-       * result ici est un InsertOneResult, un objet
-       * qui contient 2 propriétés:
-       * - acknownledged : Un boolean, true si l'insertion c'est
-       *   bien passé, false sinon
-       * - insertedId : L'ID généré par mongodb pour notre category
-       */
-      const result = await db.collection('categories').insertOne(request.body)
-
-      /**
-       * On récupére la catégorie qui vient d'être inséré
-       */
-      const category = await db.collection('categories').findOne({
-        _id: mongo.ObjectId(result.insertedId),
-      })
-
-      reply.status(201)
-
-      /**
-       * On renvoie la category dans la réponse http
-       */
-      return category
-    }
-  )
 
   /**
    * Récuparation des articles.
