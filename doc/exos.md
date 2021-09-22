@@ -161,7 +161,7 @@
 5. Retourner l'article supprimé
 6. Tester graçe au fichier `request.http`
 
-## 4. Les utilisateurs
+# 4. Les utilisateurs
 
 1. Créer un fichier `src/schemas/user.js`, ajouter un schema
    avec les champs suivant:
