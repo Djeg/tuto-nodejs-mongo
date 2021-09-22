@@ -6,6 +6,7 @@
  */
 import fastify from 'fastify'
 import mongo from 'mongodb'
+import S from 'fluent-json-schema'
 
 /**
  * On créé une fonction de démarrage asynchrone afin
@@ -56,6 +57,18 @@ async function start() {
   })
 
   /**
+   * Création d'un schema pour les nouvelles catégorie
+   */
+  const newCategorySchema = S.object()
+    .prop('title', S.string().required())
+    .additionalProperties(false)
+
+  /**
+   * Création d'un schéma pour les catégorie
+   */
+  const categorySchema = newCategorySchema.prop('_id', S.string().required())
+
+  /**
    * Récupération des categories.
    */
   app.get('/categories', async () => {
@@ -71,30 +84,43 @@ async function start() {
   /**
    * Création d'une category
    */
-  app.post('/categories', async (request) => {
-    /**
-     * Ici on insére une catégorie dans mongodb
-     *
-     * result ici est un InsertOneResult, un objet
-     * qui contient 2 propriétés:
-     * - acknownledged : Un boolean, true si l'insertion c'est
-     *   bien passé, false sinon
-     * - insertedId : L'ID généré par mongodb pour notre category
-     */
-    const result = await db.collection('categories').insertOne(request.body)
+  app.post(
+    '/categories',
+    {
+      schema: {
+        response: {
+          201: categorySchema,
+        },
+        body: newCategorySchema,
+      },
+    },
+    async (request, reply) => {
+      /**
+       * Ici on insére une catégorie dans mongodb
+       *
+       * result ici est un InsertOneResult, un objet
+       * qui contient 2 propriétés:
+       * - acknownledged : Un boolean, true si l'insertion c'est
+       *   bien passé, false sinon
+       * - insertedId : L'ID généré par mongodb pour notre category
+       */
+      const result = await db.collection('categories').insertOne(request.body)
 
-    /**
-     * On récupére la catégorie qui vient d'être inséré
-     */
-    const category = await db.collection('categories').findOne({
-      _id: mongo.ObjectId(result.insertedId),
-    })
+      /**
+       * On récupére la catégorie qui vient d'être inséré
+       */
+      const category = await db.collection('categories').findOne({
+        _id: mongo.ObjectId(result.insertedId),
+      })
 
-    /**
-     * On renvoie la category dans la réponse http
-     */
-    return category
-  })
+      reply.status(201)
+
+      /**
+       * On renvoie la category dans la réponse http
+       */
+      return category
+    }
+  )
 
   /**
    * Récuparation des articles.
