@@ -74,22 +74,92 @@
 2. Vous pouvez tester en utilisant le fichier
    `request.http`
 
-## 3. Schématiser les articles
+## 3. Réorganiser l'application
 
-1. Dans le fichier src/index.js, dans la route
-   `POST /articles`, ajouter un schema au body de
-   notre request qui respécte les caractéristiques
-   suivantes :
+## Exo 1 - Créer le plugin des articles
 
-```
-*title: string
-*description: string
-*images: [ string ]
-shortDescription: string
-*author:
-  *firstname: string
-  *lastname: string
-```
+1. Créer le fichier `src/plugins/articles.js'
+2. Couper / Colle tout le code concernant les articles
+   dans le fichier `src/plugins/articles.js`
+3. Retoucher le code pour ne plus utiliser
+   `await db` mais `await app.db` !
+4. Importer le plugins articles dans `src/index.js`
+5. Enregistrer le plugin graçe à `app.register(<nomDuPlugin>)`
+6. Tester graçe au fichier `request.http`
+
+## Exo 2 - Schématiser les articles
+
+1. Dans le fichier `src/plugins/articles.js` créer le schéma
+   `NewArticleSchema` de la forme suivante :
+
+   | nom du champ | type   | required |
+   | ------------ | ------ | -------- |
+   | title        | string | oui      |
+   | description  | string | oui      |
+   | content      | string | oui      |
+
+2. Attacher le schéma sur le body de la route `POST /articles`
+3. Créer le schéma `ArticleSchema` qui utilise `NewArticleSchema`
+   et qui rajoute les champs suivant
+
+   | nom du champs | type   | required |
+   | ------------- | ------ | -------- |
+   | `_id`         | string | oui      |
+
+4. Attacher le schéma à la réponse 201 de la route `POST /articles`
+5. Tester graçe au fichier `request.http`
+
+## Exo 3 - Mise à jour d'une catégorie
+
+1. Dans le fichier `src/plugins/categories.js` ajouter la route
+   `PATCH /categories/:id`
+2. Attacher le schéma `NewCategory` au body de cette route
+3. Attacher le schéma `Category` à la réponse 200 de cette route
+4. Récupérer la catégorie avec l'id spécifié en paramètre (`request.params.id`).
+   Optionel: Vous pouvez retourner une réponse 404 si la catégorie n'éxiste pas.
+5. Changer le titre de la catégorie graçe à `await app.db.collection('categories').updateOne()`.
+   (vous pouvez vous aider ici: https://slides.com/davidjegat-1/nodejs-mongodb/fullscreen#/30)
+6. Récupérer la catégorie mise à jour grace à `findOne`
+7. Retourner la catégorie
+8. Tester graçe au fichier `request.http`
+
+## Exo 4 - Suppression d'une catégorie
+
+1. Dans le fichier `src/plugins/categories.js` ajouter la route
+   `DELETE /categories/:id`
+2. Attacher le schéma `Category` à la réponse 200 de cette route
+3. Récupérer la catégorie avec l'id spécifié en paramètre (`request.params.id`).
+   Optionel: Vous pouvez retourner une réponse 404 si la catégorie n'éxiste pas.
+4. Supprimer la catégorie graçe à `await app.db.collection('categories').deleteOne()`.
+   (vous pouvez vous aider ici: https://slides.com/davidjegat-1/nodejs-mongodb/fullscreen#/31)
+5. Retourner la catégorie supprimé
+6. Tester graçe au fichier `request.http`
+
+## Exo 5 - Mise à jour d'un article
+
+1. Dans le fichier `src/plugins/articles.js` ajouter la route
+   `PATCH /articles/:id`
+2. Créer et attacher le schéma `UpdateArticle` au body de cette route
+3. Attacher le schéma `Article` à la réponse 200 de cette route
+4. Récupérer l'article avec l'id spécifié en paramètre (`request.params.id`).
+   Optionel: Vous pouvez retourner une réponse 404 si l'article n'éxiste pas.
+5. Changer les champs de l'article graçe à `await app.db.collection('articles').updateOne()`.
+   (vous pouvez vous aider ici: https://slides.com/davidjegat-1/nodejs-mongodb/fullscreen#/30)
+6. Récupérer l'article mis à jour grace à `findOne`
+7. Retourner l'article
+8. Tester graçe au fichier `request.http`
+
+## Exo 6 - Supprimer un article
+
+1. Dans le fichier `src/plugins/articles.js` ajouter la route
+   `DELETE /articles/:id`
+2. Attacher le schéma `Article` à la réponse 200 de cette route
+3. Récupérer l'article avec l'id spécifié en paramètre (`request.params.id`).
+   Optionel: Vous pouvez retourner une réponse 404 si l'article n'éxiste pas.
+4. Supprimer l'article graçe à `await app.db.collection('articles').deleteOne()`.
+   (vous pouvez vous aider ici: https://slides.com/davidjegat-1/nodejs-mongodb/fullscreen#/31)
+5. Retourner l'article supprimé
+6. Tester graçe au fichier `request.http`
 
 ## 4. Les utilisateurs
 
