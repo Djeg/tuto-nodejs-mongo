@@ -74,7 +74,7 @@
 2. Vous pouvez tester en utilisant le fichier
    `request.http`
 
-## 3. Réorganiser l'application
+# 3. Réorganiser l'application
 
 ## Exo 1 - Créer le plugin des articles
 
