@@ -7,6 +7,7 @@
 import fastify from 'fastify'
 import mongo from 'mongodb'
 import S from 'fluent-json-schema'
+import helloPlugin from './plugins/hello.js'
 
 /**
  * On créé une fonction de démarrage asynchrone afin
@@ -38,12 +39,9 @@ async function start() {
   })
 
   /**
-   * On route de test, pour dire bonjour
+   * Branchement du plugin hello
    */
-  app.get('/hello', async (/*request*/) => {
-    //request.body.title
-    return 'Hello tout le monde'
-  })
+  app.register(helloPlugin)
 
   /**
    * On route de test, pour retourner un utilisateur
