@@ -25,7 +25,7 @@ GET http://localhost:9090/articles
 
 ###
 
-GET http://localhost:9090/articles/2
+GET http://localhost:9090/articles/6149dc176f7073cf4a490b45
 
 ###
 
