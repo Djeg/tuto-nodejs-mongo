@@ -163,26 +163,47 @@
 
 # 4. Les utilisateurs
 
-1. Créer un fichier `src/schemas/user.js`, ajouter un schema
-   avec les champs suivant:
+## Exo 1 - La création d'utilisateur
 
-```
-*email: string
-*password: string
-firstname: string
-lastname: string
-image: string
-```
+1. Créer un plugin `src/plugins/users.js`
+2. Créer un schéma `NewUser`:
 
-2. Importer ce schemas depuis notre `src/index.js`
-3. Créer un fichier `src/routes/user.js` et ajouter une route
-   `POST /users` qui accèpte un user dans le body de la request
-   et enregistre l'utilisateur en base de données
-4. Ajouter une route `GET /users` qui retourne tout les utilisateurs
-   en base de données
-5. Importer `src/routes/user.js` dans `src/index.js`
-6. Vous pouvez tester `POST /users` et `GET /users` dans le fichier
-   `request.http`
+| champ     | type   | requis |
+| --------- | ------ | ------ |
+| email     | string | oui    |
+| firstname | string | oui    |
+| lastname  | string | oui    |
+| password  | string | oui    |
+| role      | string | oui    |
+
+3. Créer un schéma `User` qui reprend le schéma
+   précédent et rajoute un champ `_id: string (required)`
+
+4. Créer une route `POST /users` qui enregistre
+   un utilisateur en base de données et retourne
+   l'utilisateur créé avec le bon code HTTP.
+
+## Exo 2 - Lister les utilisateurs
+
+1. Créer la route `GET /users` qui retourne une collection
+   paginé de tout les utilisateurs
+
+## Exo 3 - Afficher un utilisateur
+
+1. Créer la route `GET /users/:id` qui retourne l'utilisateur
+   avec l'id spécifié
+
+## Exo 4 - Supprimer un utilisateur
+
+1. Créer la route `DELETE /users/:id` qui supprime un utilisateur
+   avec l'id spécifié
+
+## Exo 5 - Modifier un utilisateur
+
+1. Créer le schéma `UpdateUserSchema` qui reprend les champs
+   du `NewUserSchema` mais sans les "required"
+2. Créer la route `PATCH /users/:id` qui modifie un les champs
+   d'un utilisateur
 
 ## 5. Authentification
 
