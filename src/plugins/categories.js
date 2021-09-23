@@ -110,6 +110,39 @@ export default async function categoriesPlugin(app) {
       }
     }
   )
+
+  /**
+   * Suppression d'une catégorie
+   */
+  app.delete(
+    '/categories/:id',
+    {
+      schema: {
+        response: {
+          200: CategorySchema,
+        },
+      },
+    },
+    async (request, reply) => {
+      try {
+        const category = await app.db.collection('categories').findOne({
+          _id: mongo.ObjectId(request.params.id),
+        })
+
+        if (!category) throw Error()
+
+        await app.db.collection('categories').deleteOne({
+          _id: mongo.ObjectId(request.params.id),
+        })
+
+        return category
+      } catch (e) {
+        reply.status(404)
+
+        return { message: 'Category not found' }
+      }
+    }
+  )
 }
 
 /**
