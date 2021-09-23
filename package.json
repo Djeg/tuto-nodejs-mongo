@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/Djeg/tuto-nodejs-mongo#readme",
   "dependencies": {
+    "dotenv": "^10.0.0",
     "fastify": "^3.21.3",
     "fluent-json-schema": "^3.0.1",
     "mongodb": "^4.1.2",

@@ -4,11 +4,18 @@
 /**
  * On importe la librairie fastify et mongodb
  */
+import dotenv from 'dotenv'
 import fastify from 'fastify'
 import mongo from 'mongodb'
 import helloPlugin from './plugins/hello.js'
 import categoriesPlugin from './plugins/categories.js'
 import articlesPlugin from './plugins/articles.js'
+
+/**
+ * Lis la configuration dans le fichier
+ * .env
+ */
+dotenv.config()
 
 /**
  * On créé une fonction de démarrage asynchrone afin
@@ -19,9 +26,8 @@ async function start() {
    * Nous nous connéctons au cluster mongodb
    * (à la machine qui contient mongodb)
    */
-  const client = await mongo.MongoClient.connect(
-    'mongodb+srv://blog:blog@cluster0.odhgb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
-  )
+  console.log(process.env.MONGO_URL)
+  const client = await mongo.MongoClient.connect(process.env.MONGO_URL)
 
   /**
    * Nous récupérons une référence vers une base de données
