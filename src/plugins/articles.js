@@ -12,6 +12,7 @@ export default async function articlesPlugin(app) {
     '/articles',
     {
       schema: {
+        tags: ['article'],
         response: {
           200: ArticleCollectionSchema,
         },
@@ -31,6 +32,7 @@ export default async function articlesPlugin(app) {
     '/articles/:id',
     {
       schema: {
+        tags: ['article'],
         response: {
           200: ArticleSchema,
         },
@@ -58,6 +60,7 @@ export default async function articlesPlugin(app) {
     '/articles',
     {
       schema: {
+        tags: ['article'],
         body: NewArticleSchema,
         response: {
           201: ArticleSchema,
@@ -84,6 +87,7 @@ export default async function articlesPlugin(app) {
     '/articles/:id',
     {
       schema: {
+        tags: ['article'],
         body: UpdateArticleSchema,
         response: {
           200: ArticleSchema,
@@ -121,6 +125,7 @@ export default async function articlesPlugin(app) {
     '/articles/:id',
     {
       schema: {
+        tags: ['article'],
         response: {
           200: ArticleSchema,
         },

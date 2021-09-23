@@ -13,6 +13,7 @@ export default async function categoriesPlugin(app) {
     '/categories',
     {
       schema: {
+        tags: ['category'],
         response: {
           200: CategoryCollectionSchema,
         },
@@ -36,6 +37,7 @@ export default async function categoriesPlugin(app) {
     '/categories',
     {
       schema: {
+        tags: ['category'],
         response: {
           201: CategorySchema,
         },
@@ -79,6 +81,7 @@ export default async function categoriesPlugin(app) {
     '/categories/:id',
     {
       schema: {
+        tags: ['category'],
         body: NewCategorySchema,
         response: {
           200: CategorySchema,
@@ -118,6 +121,7 @@ export default async function categoriesPlugin(app) {
     '/categories/:id',
     {
       schema: {
+        tags: ['category'],
         response: {
           200: CategorySchema,
         },

@@ -10,6 +10,8 @@ import mongo from 'mongodb'
 import helloPlugin from './plugins/hello.js'
 import categoriesPlugin from './plugins/categories.js'
 import articlesPlugin from './plugins/articles.js'
+import fastifySwagger from 'fastify-swagger'
+import fastifyCors from 'fastify-cors'
 
 /**
  * Lis la configuration dans le fichier
@@ -54,6 +56,33 @@ async function start() {
    * accéder à la DB très simplement : app.db
    */
   app.decorate('db', db)
+
+  /**
+   * Enregistrement du plugin fastify cors afin
+   * de pouvoir faire des requêtes HTTP depuis un
+   * navigateur web
+   */
+  app.register(fastifyCors)
+
+  /**
+   * Enregistrement du plugin fastify afin de générer
+   * une documentation pour notre API
+   */
+  app.register(fastifySwagger, {
+    exposeRoute: true,
+    routePrefix: '/doc',
+    swagger: {
+      host: 'localhost:9090',
+      schemes: ['http'],
+      tags: [
+        {
+          name: 'category',
+          description: 'Tout ce qui est relié aux catégories',
+        },
+        { name: 'article', description: 'Tout ce qui est relié aux articles' },
+      ],
+    },
+  })
 
   /**
    * Branchement du plugin hello, categories, articles
