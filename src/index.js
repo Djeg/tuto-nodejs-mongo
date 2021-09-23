@@ -8,6 +8,7 @@ import fastify from 'fastify'
 import mongo from 'mongodb'
 import helloPlugin from './plugins/hello.js'
 import categoriesPlugin from './plugins/categories.js'
+import articlesPlugin from './plugins/articles.js'
 
 /**
  * On créé une fonction de démarrage asynchrone afin
@@ -49,55 +50,11 @@ async function start() {
   app.decorate('db', db)
 
   /**
-   * Branchement du plugin hello, categories
+   * Branchement du plugin hello, categories, articles
    */
   app.register(helloPlugin)
   app.register(categoriesPlugin)
-
-  /**
-   * On route de test, pour retourner un utilisateur
-   */
-  app.get('/user', async () => {
-    return {
-      id: 1,
-      username: 'john',
-      email: 'john@mail.com',
-    }
-  })
-
-  /**
-   * Récuparation des articles.
-   */
-  app.get('/articles', async () => {
-    const articles = await db.collection('articles').find().toArray()
-
-    return articles
-  })
-
-  /**
-   * Récupération d'un seul article
-   */
-  app.get('/articles/:id', async (request) => {
-    const id = request.params.id
-
-    return {
-      id: id,
-      title: 'test',
-    }
-  })
-
-  /**
-   * Création d'un article
-   */
-  app.post('/articles', async (request) => {
-    const result = await db.collection('articles').insertOne(request.body)
-
-    const article = await db.collection('articles').findOne({
-      _id: mongo.ObjectId(result.insertedId),
-    })
-
-    return article
-  })
+  app.register(articlesPlugin)
 
   console.log('Démarrage du server sur le port 9090')
   /**
