@@ -205,7 +205,7 @@
 2. Créer la route `PATCH /users/:id` qui modifie un les champs
    d'un utilisateur
 
-## 5. Authentification
+# 5. Authentification
 
 1. Créer un schéma dans `src/schema/users.js` que nous appelerons
    "credential" et qui est de forme suivante :
