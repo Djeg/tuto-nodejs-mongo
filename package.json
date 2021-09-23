@@ -8,7 +8,8 @@
     "doc": "doc"
   },
   "scripts": {
-    "start": "nodemon src/index.js"
+    "start": "nodemon src/index.js",
+    "postinstall": "node bin/copy-past-env-file.js"
   },
   "repository": {
     "type": "git",
