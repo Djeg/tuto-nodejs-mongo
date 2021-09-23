@@ -51,8 +51,12 @@ et lancer la commande: `npm install`
 
 ### 3. Configurer le projet
 
-Copier coller le fichier `.env.dist` en `.env` et éditer
-les valeurs configurations si besoin.
+Créer un fichier `.env` avec à l'intérieur
+la configuration suivante :
+
+| key       | description                |
+| --------- | -------------------------- |
+| MONGO_URL | Url de connexion à mongodb |
 
 ### 4. Démarrer le serveur
 
