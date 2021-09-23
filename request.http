@@ -17,7 +17,15 @@ GET http://localhost:9090/categories
 POST http://localhost:9090/categories
 content-type: application/json
 
-{ "title": "Nature 5", "colors": "red" }
+{ "title": "Nature 5" }
+
+###
+
+
+PATCH http://localhost:9090/categories/614ade83c476af980e52e874
+content-type: application/json
+
+{ "title": "Humain" }
 
 ###
 

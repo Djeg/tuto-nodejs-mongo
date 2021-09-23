@@ -1,3 +1,4 @@
+import mongo from 'mongodb'
 import S from 'fluent-json-schema'
 
 /**
@@ -8,15 +9,25 @@ export default async function categoriesPlugin(app) {
   /**
    * Récupération des categories.
    */
-  app.get('/categories', async () => {
-    /**
-     * Ici nous récupérons l'ensemble des catégories
-     * dans un tableaux
-     */
-    const categories = await app.db.collection('categories').find().toArray()
+  app.get(
+    '/categories',
+    {
+      schema: {
+        response: {
+          200: CategoryCollectionSchema,
+        },
+      },
+    },
+    async () => {
+      /**
+       * Ici nous récupérons l'ensemble des catégories
+       * dans un tableaux
+       */
+      const categories = await app.db.collection('categories').find().toArray()
 
-    return categories
-  })
+      return categories
+    }
+  )
 
   /**
    * Création d'une category
@@ -60,6 +71,45 @@ export default async function categoriesPlugin(app) {
       return category
     }
   )
+
+  /**
+   * Modification d'une catégorie
+   */
+  app.patch(
+    '/categories/:id',
+    {
+      schema: {
+        body: NewCategorySchema,
+        response: {
+          200: CategorySchema,
+        },
+      },
+    },
+    async (request, reply) => {
+      try {
+        const result = await app.db
+          .collection('categories')
+          .updateOne(
+            { _id: mongo.ObjectId(request.params.id) },
+            { $set: request.body }
+          )
+
+        if (0 === result.modifiedCount) {
+          throw Error()
+        }
+
+        const category = await app.db.collection('categories').findOne({
+          _id: mongo.ObjectId(request.params.id),
+        })
+
+        return category
+      } catch (e) {
+        reply.status(404)
+
+        return { message: 'Category not found' }
+      }
+    }
+  )
 }
 
 /**
@@ -76,3 +126,8 @@ export const CategorySchema = NewCategorySchema.prop(
   '_id',
   S.string().required()
 )
+
+/**
+ * Création d'un schema pour une collection de catégory
+ */
+export const CategoryCollectionSchema = S.array().items(CategorySchema)
