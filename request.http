@@ -33,7 +33,7 @@ DELETE http://localhost:9090/categories/614ae1a00ca2735fb30390e4
 
 ###
 
-GET http://localhost:9090/articles
+GET http://localhost:9090/articles?limit=2&
 
 ###
 

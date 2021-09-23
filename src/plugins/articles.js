@@ -1,5 +1,6 @@
 import mongo from 'mongodb'
 import S from 'fluent-json-schema'
+import { PaginationSchema, paginateCursor } from '../utils/pagination.js'
 
 /**
  * Contient toutes les routes des articles
@@ -13,16 +14,18 @@ export default async function articlesPlugin(app) {
     {
       schema: {
         tags: ['article'],
+        querystring: PaginationSchema,
         response: {
           200: ArticleCollectionSchema,
         },
       },
     },
-    async () => {
-      const articles = await app.db.collection('articles').find().toArray()
-
-      return articles
-    }
+    async (request) =>
+      paginateCursor({
+        cursor: app.db.collection('articles').find(),
+        page: request.query.page,
+        limit: request.query.limit,
+      })
   )
 
   /**
