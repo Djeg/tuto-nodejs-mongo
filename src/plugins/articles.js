@@ -65,12 +65,15 @@ export default async function articlesPlugin(app) {
         },
       },
     },
-    async (request, reply) =>
-      create({
+    async (request, reply) => {
+      await request.jwtVerify()
+
+      return create({
         collection: app.db.collection('articles'),
         data: request.body,
         reply,
       })
+    }
   )
 
   /**

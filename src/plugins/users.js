@@ -1,4 +1,5 @@
 import mongo from 'mongodb'
+import crypto from 'crypto'
 import S from 'fluent-json-schema'
 import { PaginationSchema, paginateCursor } from '../utils/pagination.js'
 import { retrieveOne, create, update, remove } from '../utils/crud.js'
@@ -68,7 +69,13 @@ export default async function usersPlugin(app) {
     async (request, reply) =>
       create({
         collection: app.db.collection('users'),
-        data: request.body,
+        data: {
+          ...request.body,
+          password: crypto
+            .createHmac('sha256', 'secret')
+            .update(request.body.password)
+            .digest('hex'),
+        },
         reply,
       })
   )
@@ -118,6 +125,40 @@ export default async function usersPlugin(app) {
         reply,
       })
   )
+
+  /**
+   * Création d'un token d'authorization
+   */
+  app.post(
+    '/users/token',
+    {
+      schema: {
+        tags: ['user'],
+        body: UserCredentialSchema,
+      },
+    },
+    async (request, reply) => {
+      try {
+        const user = await app.db.collection('users').findOne({
+          email: request.body.email,
+          password: crypto
+            .createHmac('sha256', 'secret')
+            .update(request.body.password)
+            .digest('hex'),
+        })
+
+        if (!user) throw Error()
+
+        const token = app.jwt.sign(user)
+
+        return { token }
+      } catch (e) {
+        reply.status(400)
+
+        return { message: 'Invalid password and/or email' }
+      }
+    }
+  )
 }
 
 /**
@@ -151,3 +192,11 @@ export const UserSchema = NewUserSchema.prop('_id', S.string().required())
  * Une collection d'utilisateur
  */
 export const UserCollectionSchema = S.array().items(UserSchema)
+
+/**
+ * Contient les information de connexion d'un utilisateur
+ */
+export const UserCredentialSchema = S.object()
+  .prop('email', S.string().required())
+  .prop('password', S.string().required())
+  .additionalProperties(false)

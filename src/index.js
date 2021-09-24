@@ -13,6 +13,7 @@ import articlesPlugin from './plugins/articles.js'
 import fastifySwagger from 'fastify-swagger'
 import fastifyCors from 'fastify-cors'
 import usersPlugin from './plugins/users.js'
+import fastifyJwt from 'fastify-jwt'
 
 /**
  * Lis la configuration dans le fichier
@@ -29,7 +30,6 @@ async function start() {
    * Nous nous connéctons au cluster mongodb
    * (à la machine qui contient mongodb)
    */
-  console.log(process.env.MONGO_URL)
   const client = await mongo.MongoClient.connect(process.env.MONGO_URL)
 
   /**
@@ -57,6 +57,13 @@ async function start() {
    * accéder à la DB très simplement : app.db
    */
   app.decorate('db', db)
+
+  /**
+   * Enregistrement du plugin fastify jwt
+   */
+  app.register(fastifyJwt, {
+    secret: process.env.JWT_SECRET,
+  })
 
   /**
    * Enregistrement du plugin fastify cors afin

@@ -43,6 +43,7 @@ GET http://localhost:9090/articles/614c2d578fc235f02e978084
 
 POST http://localhost:9090/articles
 content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTRkYTJhYjEwZWQxNGY4MzJjM2FkYzAiLCJlbWFpbCI6ImpvaG5AbWFpbC5jb20iLCJwYXNzd29yZCI6Impvbm55IiwiZmlyc3RuYW1lIjoiSm9obiIsImxhc3RuYW1lIjoiRG9lIiwicm9sZSI6InVzZXIiLCJpYXQiOjE2MzI0NzgyOTZ9.-9ZaNpWY1kbnqoMLC76GrPIG0G7VjnTJvmVJsGkplJI
 
 {
   "title": "Mon article de test",
@@ -78,7 +79,7 @@ content-type: application/json
 
 {
   "email": "john@mail.com",
-  "password": "john",
+  "password": "jonny",
   "firstname": "John",
   "lastname": "Doe",
   "role": "user"
@@ -96,3 +97,13 @@ content-type: application/json
 ###
 
 DELETE http://localhost:9090/users/614d89227a0366b6711451f7
+
+###
+
+POST http://localhost:9090/users/token
+Content-Type: application/json
+
+{
+  "email": "john@mail.com",
+  "password": "jonny"
+}

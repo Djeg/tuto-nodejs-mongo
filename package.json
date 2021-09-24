@@ -25,6 +25,7 @@
     "dotenv": "^10.0.0",
     "fastify": "^3.21.3",
     "fastify-cors": "^6.0.2",
+    "fastify-jwt": "^3.1.0",
     "fastify-swagger": "^4.12.0",
     "fluent-json-schema": "^3.0.1",
     "mongodb": "^4.1.2",
