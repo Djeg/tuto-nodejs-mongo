@@ -12,6 +12,7 @@ import categoriesPlugin from './plugins/categories.js'
 import articlesPlugin from './plugins/articles.js'
 import fastifySwagger from 'fastify-swagger'
 import fastifyCors from 'fastify-cors'
+import usersPlugin from './plugins/users.js'
 
 /**
  * Lis la configuration dans le fichier
@@ -90,6 +91,7 @@ async function start() {
   app.register(helloPlugin)
   app.register(categoriesPlugin)
   app.register(articlesPlugin)
+  app.register(usersPlugin)
 
   console.log('Démarrage du server sur le port 9090')
   /**

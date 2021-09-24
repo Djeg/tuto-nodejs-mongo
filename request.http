@@ -33,7 +33,7 @@ DELETE http://localhost:9090/categories/614ae1a00ca2735fb30390e4
 
 ###
 
-GET http://localhost:9090/articles?limit=2&
+GET http://localhost:9090/articles?limit=2
 
 ###
 
@@ -62,3 +62,37 @@ content-type: application/json
 ###
 
 DELETE http://localhost:9090/articles/614c470184287e49e651e604
+
+###
+
+GET http://localhost:9090/users?limit=2
+
+###
+
+GET http://localhost:9090/users/614d802fffa797dc21d9c1db
+
+###
+
+POST http://localhost:9090/users
+content-type: application/json
+
+{
+  "email": "john@mail.com",
+  "password": "john",
+  "firstname": "John",
+  "lastname": "Doe",
+  "role": "user"
+}
+
+###
+
+PATCH http://localhost:9090/users/614d802fffa797dc21d9c1db
+content-type: application/json
+
+{
+  "role": "admin"
+}
+
+###
+
+DELETE http://localhost:9090/users/614d802fffa797dc21d9c1db
