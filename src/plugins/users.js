@@ -1,6 +1,7 @@
 import mongo from 'mongodb'
 import S from 'fluent-json-schema'
 import { PaginationSchema, paginateCursor } from '../utils/pagination.js'
+import { retrieveOne, create, update, remove } from '../utils/crud.js'
 
 /**
  * Contient toutes les routes des utilisateurs
@@ -41,21 +42,13 @@ export default async function usersPlugin(app) {
         },
       },
     },
-    async (request, reply) => {
-      try {
-        const user = await app.db.collection('users').findOne({
-          _id: mongo.ObjectId(request.params.id),
-        })
-
-        if (!user) throw Error()
-
-        return user
-      } catch (e) {
-        reply.status(404)
-
-        return { message: 'User not found' }
-      }
-    }
+    async (request, reply) =>
+      retrieveOne({
+        collection: app.db.collection('users'),
+        id: request.params.id,
+        reply,
+        errorMessage: 'User not found',
+      })
   )
 
   /**
@@ -72,17 +65,12 @@ export default async function usersPlugin(app) {
         },
       },
     },
-    async (request, reply) => {
-      const result = await app.db.collection('users').insertOne(request.body)
-
-      const user = await app.db.collection('users').findOne({
-        _id: mongo.ObjectId(result.insertedId),
+    async (request, reply) =>
+      create({
+        collection: app.db.collection('users'),
+        data: request.body,
+        reply,
       })
-
-      reply.status(201)
-
-      return user
-    }
   )
 
   /**
@@ -99,30 +87,14 @@ export default async function usersPlugin(app) {
         },
       },
     },
-    async (request, reply) => {
-      try {
-        const result = await app.db
-          .collection('users')
-          .updateOne(
-            { _id: mongo.ObjectId(request.params.id) },
-            { $set: request.body }
-          )
-
-        if (0 === result.modifiedCount) throw Error()
-
-        const user = await app.db.collection('users').findOne({
-          _id: mongo.ObjectId(request.params.id),
-        })
-
-        if (!user) throw Error()
-
-        return user
-      } catch (e) {
-        reply.status(404)
-
-        return { message: 'User not found' }
-      }
-    }
+    async (request, reply) =>
+      update({
+        collection: app.db.collection('users'),
+        id: request.params.id,
+        data: request.body,
+        errorMessage: 'User not found',
+        reply,
+      })
   )
 
   /**
@@ -138,25 +110,13 @@ export default async function usersPlugin(app) {
         },
       },
     },
-    async (request, reply) => {
-      try {
-        const user = await app.db.collection('users').findOne({
-          _id: mongo.ObjectId(request.params.id),
-        })
-
-        if (!user) throw Error()
-
-        await app.db.collection('users').deleteOne({
-          _id: mongo.ObjectId(request.params.id),
-        })
-
-        return user
-      } catch (e) {
-        reply.status(404)
-
-        return { message: 'User not found' }
-      }
-    }
+    async (request, reply) =>
+      remove({
+        collection: app.db.collection('users'),
+        id: request.params.id,
+        errorMessage: 'User not found',
+        reply,
+      })
   )
 }
 

@@ -10,7 +10,11 @@ export const PaginationSchema = S.object()
 /**
  * Paginate a collection
  */
-export async function paginateCursor({ cursor, page = 1, limit = 25 }) {
+export async function paginateCursor({
+  cursor,
+  page = 1,
+  limit = Number(process.env.DEFAULT_PAGINATION_LIMIT),
+}) {
   const offset = (page - 1) * limit
 
   const result = await cursor.limit(limit).skip(offset).toArray()

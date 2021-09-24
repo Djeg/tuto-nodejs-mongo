@@ -1,6 +1,7 @@
 import mongo from 'mongodb'
 import S from 'fluent-json-schema'
 import { PaginationSchema, paginateCursor } from '../utils/pagination.js'
+import { retrieveOne, create, update, remove } from '../utils/crud.js'
 
 /**
  * Contient toutes les routes des articles
@@ -41,19 +42,13 @@ export default async function articlesPlugin(app) {
         },
       },
     },
-    async (request, reply) => {
-      try {
-        const article = await app.db.collection('articles').findOne({
-          _id: mongo.ObjectId(request.params.id),
-        })
-
-        return article
-      } catch (e) {
-        reply.status(404)
-
-        return { message: 'Article not found' }
-      }
-    }
+    async (request, reply) =>
+      retrieveOne({
+        collection: app.db.collection('articles'),
+        id: request.params.id,
+        errorMessage: 'Article not found',
+        reply,
+      })
   )
 
   /**
@@ -70,17 +65,12 @@ export default async function articlesPlugin(app) {
         },
       },
     },
-    async (request, reply) => {
-      const result = await app.db.collection('articles').insertOne(request.body)
-
-      const article = await app.db.collection('articles').findOne({
-        _id: mongo.ObjectId(result.insertedId),
+    async (request, reply) =>
+      create({
+        collection: app.db.collection('articles'),
+        data: request.body,
+        reply,
       })
-
-      reply.status(201)
-
-      return article
-    }
   )
 
   /**
@@ -97,28 +87,14 @@ export default async function articlesPlugin(app) {
         },
       },
     },
-    async (request, reply) => {
-      try {
-        const result = await app.db
-          .collection('articles')
-          .updateOne(
-            { _id: mongo.ObjectId(request.params.id) },
-            { $set: request.body }
-          )
-
-        if (0 === result.modifiedCount) throw Error()
-
-        const article = await app.db.collection('articles').findOne({
-          _id: mongo.ObjectId(request.params.id),
-        })
-
-        return article
-      } catch (e) {
-        reply.status(404)
-
-        return { message: 'Article not found' }
-      }
-    }
+    async (request, reply) =>
+      update({
+        collection: app.db.collection('articles'),
+        id: request.params.id,
+        data: request.body,
+        errorMessage: 'Article not found',
+        reply,
+      })
   )
 
   /**
@@ -134,25 +110,13 @@ export default async function articlesPlugin(app) {
         },
       },
     },
-    async (request, reply) => {
-      try {
-        const article = await app.db.collection('articles').findOne({
-          _id: mongo.ObjectId(request.params.id),
-        })
-
-        if (!article) throw Error()
-
-        await app.db.collection('articles').deleteOne({
-          _id: mongo.ObjectId(request.params.id),
-        })
-
-        return article
-      } catch (e) {
-        reply.status(404)
-
-        return { message: 'Article not found' }
-      }
-    }
+    async (request, reply) =>
+      remove({
+        collection: app.db.collection('articles'),
+        id: request.params.id,
+        errorMessage: 'Article not found',
+        reply,
+      })
   )
 }
 

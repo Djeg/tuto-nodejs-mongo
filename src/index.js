@@ -93,13 +93,13 @@ async function start() {
   app.register(articlesPlugin)
   app.register(usersPlugin)
 
-  console.log('Démarrage du server sur le port 9090')
+  console.log(`Démarrage du server sur le port ${process.env.PORT}`)
   /**
    * On démarre le server sur le port 9090. app.listen
    * démarre un programme qui ne finie jamais et écoute
    * les requêtes sur le port 9090
    */
-  await app.listen(9090)
+  await app.listen(Number(process.env.PORT))
 }
 
 /**
