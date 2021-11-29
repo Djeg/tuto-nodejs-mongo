@@ -6,12 +6,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/index.js"
+    "start": "nodemon src/index.js"
   },
   "keywords": [],
   "author": "David Jegat",
   "license": "ISC",
   "dependencies": {
-    "fastify": "^3.24.0"
+    "fastify": "^3.24.0",
+    "nodemon": "^2.0.15"
   }
 }
