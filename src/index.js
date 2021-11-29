@@ -20,6 +20,8 @@ const app = Fastify({
  */
 app.get('/', () => 'Test')
 
+// Essayer de créer une route "/test" qui affiche un test
+
 /**
  * Nous pouvons démarer un server logique sur
  * notre machine
