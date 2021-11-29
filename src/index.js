@@ -17,6 +17,28 @@ const app = Fastify({
  * 1. Créer une route POST /books qui retourne un réponse
  *    avec le status code : 201 (il faut utiliser l'objet reply) et
  *    l'objet suivant : { id: 1, title: "Harry Potter" }
+ */
+app.post('/books', (request, reply) => {
+  reply.code(201)
+
+  return {
+    id: 1,
+    title: 'Harry Potter',
+  }
+})
+
+/**
+ * Contient tout les livres de l'api
+ */
+const books = [
+  { id: 1, title: "Harry Potter" },
+  { id: 2, title: "Livre 2" },
+  { id: 3, title: "Livre 3" },
+  { id: 4, title: "Livre 4" },
+  { id: 5, title: "Livre 5" },
+]
+
+/**
  * 2. Créer une route GET /books qui retourne la collection suivante :
  * [
  *  { id: 1, title: "Harry Potter" },
@@ -25,12 +47,38 @@ const app = Fastify({
  *  { id: 4, title: "Livre 4" },
  *  { id: 5, title: "Livre 5" },
  * ]
- * 3. Créer une route GET /books/:id qui affiche le document
- *    livre avec l'id demandé en paramètre.
  * 4. Ajouter la possibilité avec la route GET /books de limiter
  *    le nombre résultat (ex: GET /books?limit=2 j'obtient que 2 livres).
  *    Vous pouvez vous aider de `request.query`
  */
+app.get('/books', (request) => {
+  const limit = parseInt(request.query.limit)
+
+  if (!limit) {
+    return books
+  }
+
+  return books.slice(0, limit)
+})
+
+/**
+ * 3. Créer une route GET /books/:id qui affiche le document
+ *    livre avec l'id demandé en paramètre.
+ */
+app.get('/books/:id', (request, reply) => {
+  const id = parseInt(request.params.id)
+
+  let book = books.find(book => book.id === id)
+
+  if (!book) {
+    reply.code(404)
+
+    return { message: 'No book' }
+  }
+
+  return book
+})
+
 
 /**
  * Nous pouvons définir tout pleins de routes.
