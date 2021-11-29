@@ -17,6 +17,12 @@ const app = Fastify({
  * Nous pouvons démarer un server logique sur
  * notre machine
  */
-app.listen(3030, 'localhost', () => {
-  console.log("Le server est disponible sur l'adresse : http://localhost:3030")
-})
+app.listen(
+  /* Le port */ 3030,
+  /* l'adresse de la machine, ici notre machine */ 'localhost',
+  /* Une fonction qui se lance, un fois le server demarré */ () => {
+    console.log(
+      "Le server est disponible sur l'adresse : http://localhost:3030",
+    )
+  },
+)
