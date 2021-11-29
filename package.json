@@ -10,5 +10,8 @@
   },
   "keywords": [],
   "author": "David Jegat",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "fastify": "^3.24.0"
+  }
 }
