@@ -14,6 +14,13 @@ const app = Fastify({
 })
 
 /**
+ * Nous pouvons définir tout pleins de routes.
+ * Une route correspond à un chemin donnée sur notre
+ * server (on appel ça une resource)
+ */
+app.get('/', () => 'Test')
+
+/**
  * Nous pouvons démarer un server logique sur
  * notre machine
  */
