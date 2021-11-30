@@ -5,6 +5,8 @@ import Fastify from 'fastify'
 import createBook from './plugins/books/create-book.js'
 import listBook from './plugins/books/list-books.js'
 import getBook from './plugins/books/get-book.js'
+import bookDecorator from './plugins/decorators/books.js'
+import fp from 'fastify-plugin'
 
 
 /**
@@ -22,44 +24,22 @@ async function main() {
   })
 
   /**
+   * Nous incluons en premier les plugins
+   * decorators.
+   * 
+   * !Attention! si nous souhaitons décorer TOUT les plugins
+   * (et pas uniquement le plugin decotaror). Il faut
+   * installer et utiliser 'fastify-plugin'
+   */
+  app.register(fp(bookDecorator))
+
+  /**
    * Nous enregistrons le plugin "createBook" dans
    * notre application :
    */
   app.register(createBook)
   app.register(listBook)
   app.register(getBook)
-
-  /**
-   * Nous pouvons définir tout pleins de routes.
-   * Une route correspond à un chemin donnée sur notre
-   * server (on appel ça une resource)
-   */
-  app.get('/', () => 'Test')
-
-  /**
-   * Il est possible de créer des routes avec des paramètres
-   */
-  app.get('/additionner/:number1/:number2', (request, reply) => {
-    reply.header('Content-Type', 'text/html')
-
-    return `
-  <html> 
-    <head>
-      <title>test</title> 
-    </head>
-    
-    <body>
-      <h1>Le résultat est : ${
-        parseInt(request.params.number1) + parseInt(request.params.number2)
-      }</h1>
-    </body>
-    
-  </html>
-    `
-  })
-
-  // Essayer de créer une route "/test" qui affiche un test
-  app.get('/test', () => 'Test 2')
 
   /**
    * Nous pouvons démarer un server logique sur

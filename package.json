@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "fastify": "^3.24.0",
+    "fastify-plugin": "^3.0.0",
     "nodemon": "^2.0.15"
   }
 }

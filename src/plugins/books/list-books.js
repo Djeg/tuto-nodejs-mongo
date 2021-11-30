@@ -1,5 +1,3 @@
-import { books } from '../../books.js'
-
 /**
  * Ce plugin contient la route listant les livres
  */
@@ -21,9 +19,9 @@ export default async function listBook(app) {
     const limit = parseInt(request.query.limit)
 
     if (!limit) {
-      return books
+      return app.books
     }
 
-    return books.slice(0, limit)
+    return app.books.slice(0, limit)
   })
 }

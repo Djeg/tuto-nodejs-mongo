@@ -1,5 +1,3 @@
-import { books } from '../../books.js'
-
 export default async function getBook(app) {
   /**
    * 3. Créer une route GET /books/:id qui affiche le document
@@ -8,7 +6,7 @@ export default async function getBook(app) {
   app.get('/books/:id', (request, reply) => {
     const id = parseInt(request.params.id)
 
-    let book = books.find(book => book.id === id)
+    let book = app.books.find(book => book.id === id)
 
     if (!book) {
       reply.code(404)
