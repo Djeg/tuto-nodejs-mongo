@@ -18,8 +18,10 @@ export default async function listBook(app) {
   app.get('/books', async (request) => {
     const limit = parseInt(request.query.limit)
 
+    const books = await app.db.collection('books').find().toArray()
+
     if (!limit) {
-      return app.books
+      return books
     }
 
     return app.books.slice(0, limit)

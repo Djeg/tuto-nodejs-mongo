@@ -31,3 +31,7 @@ GET http://localhost:3030/books/61a608e466dd00c0c2e411b0
 ###
 
 GET http://localhost:3030/books/24
+
+###
+
+DELETE http://localhost:3030/books/61a64a63b32cca8d4d556bfb

@@ -1,3 +1,5 @@
+import mongo from 'mongodb'
+
 /**
  * En fastify un plugin c'est une fonction asynchrone
  * qui recoit en premier paramètre l'application fastify et
@@ -10,11 +12,14 @@ export default async function createBook(app) {
    *    l'objet suivant : { id: 1, title: "Harry Potter" }
    */
   app.post('/books', async (request, reply) => {
-    reply.code(201)
+    const livre = request.body
 
-    return {
-      id: 1,
-      title: 'Harry Potter',
-    }
+    const result = await app.db.collection('books').insertOne(livre)
+
+    const book = await app.db.collection('books').findOne({
+      _id: result.insertedId,
+    })
+
+    return book
   })
 }
