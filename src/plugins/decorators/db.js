@@ -7,7 +7,7 @@ import mongo from 'mongodb'
  * Création du plugin qui vas décorer notre application
  * avec la base de données
  */
-export default async function db(app) {
+export default async function dbDecorator(app) {
   /**
    * Nous nous connéctons à notre base de données
    * et recevons un client mongodb
