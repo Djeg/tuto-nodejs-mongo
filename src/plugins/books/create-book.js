@@ -9,7 +9,7 @@ export default async function createBook(app) {
    *    avec le status code : 201 (il faut utiliser l'objet reply) et
    *    l'objet suivant : { id: 1, title: "Harry Potter" }
    */
-  app.post('/books', (request, reply) => {
+  app.post('/books', async (request, reply) => {
     reply.code(201)
 
     return {

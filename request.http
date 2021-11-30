@@ -7,6 +7,13 @@ GET http://localhost:3030
 ###
 
 POST http://localhost:3030/books
+Content-Type: application/json
+
+{
+  "title": "test",
+  "description": "sdkfhsfdsh",
+  "image": "fsdkfhdsfkdsh"
+}
 
 ###
 

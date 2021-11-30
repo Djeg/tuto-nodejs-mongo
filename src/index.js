@@ -11,6 +11,23 @@ import fp from 'fastify-plugin'
 
 
 /**
+ * Exercices :
+ * 
+ * 1. Utiliser la base de données dans le plugin 'src/plugins/books/create-book.js'.
+ *    Pour cela vous pouvez récupérer le contenu de la requête en
+ *    utilisant "request.body" et ensuite l'enregistré dans la base
+ *    de données, Pour terminer retourner le document nouvellement
+ *    inséré dans la base de données
+ * 
+ * 2. Utiliser la base de données dans le plugin 'src/plugins/books/list-books.js'.
+ * 
+ * 3. Créer un plugin 'src/plugins/books/delete-book.js' qui créer une
+ *    route DELETE /books/:id et supprime le livre avec l'id
+ *    spécifié
+ */
+
+
+/**
  * Voici la fonction principale de notre programme
  */
 async function main() {

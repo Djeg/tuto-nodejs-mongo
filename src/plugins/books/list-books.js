@@ -15,7 +15,7 @@ export default async function listBook(app) {
    *    le nombre résultat (ex: GET /books?limit=2 j'obtient que 2 livres).
    *    Vous pouvez vous aider de `request.query`
    */
-  app.get('/books', (request) => {
+  app.get('/books', async (request) => {
     const limit = parseInt(request.query.limit)
 
     if (!limit) {
