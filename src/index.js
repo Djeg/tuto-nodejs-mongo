@@ -6,6 +6,7 @@ import createBook from './plugins/books/create-book.js'
 import listBook from './plugins/books/list-books.js'
 import getBook from './plugins/books/get-book.js'
 import bookDecorator from './plugins/decorators/books.js'
+import dbDecorator from './plugins/decorators/db.js'
 import fp from 'fastify-plugin'
 
 
@@ -32,6 +33,7 @@ async function main() {
    * installer et utiliser 'fastify-plugin'
    */
   app.register(fp(bookDecorator))
+  app.register(fp(dbDecorator))
 
   /**
    * Nous enregistrons le plugin "createBook" dans
