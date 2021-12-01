@@ -24,6 +24,6 @@ export default async function listBook(app) {
       return books
     }
 
-    return app.books.slice(0, limit)
+    return books.slice(0, limit) // [ { id: "dfhsdlfhskfhsdfhsd",  } ]
   })
 }

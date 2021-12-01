@@ -12,7 +12,10 @@ Content-Type: application/json
 {
   "title": "test",
   "description": "sdkfhsfdsh",
-  "image": "fsdkfhdsfkdsh"
+  "image": "fsdkfhdsfkdsh",
+  "price": 3.5,
+  "foo": "bar",
+  "sdkfhsdlkfhk": "sdlkfhsdlkf"
 }
 
 ###
@@ -34,4 +37,4 @@ GET http://localhost:3030/books/24
 
 ###
 
-DELETE http://localhost:3030/books/61a64a63b32cca8d4d556bfb
+DELETE http://localhost:3030/books/61a73658459e4e30a477fba9
