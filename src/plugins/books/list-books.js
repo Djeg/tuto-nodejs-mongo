@@ -1,3 +1,5 @@
+import { bookCollectionSchema } from "../../schemas/book-schema.js"
+
 /**
  * Ce plugin contient la route listant les livres
  */
@@ -15,7 +17,13 @@ export default async function listBook(app) {
    *    le nombre résultat (ex: GET /books?limit=2 j'obtient que 2 livres).
    *    Vous pouvez vous aider de `request.query`
    */
-  app.get('/books', async (request) => {
+  app.get('/books', {
+    schema: {
+      response: {
+        200: bookCollectionSchema,
+      }
+    }
+  }, async (request) => {
     const limit = parseInt(request.query.limit)
 
     const books = await app.db.collection('books').find().toArray()

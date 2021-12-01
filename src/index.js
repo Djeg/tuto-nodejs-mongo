@@ -52,7 +52,13 @@ async function main() {
   app.listen(
     /* Le port */ 3030,
     /* l'adresse de la machine, ici notre machine */ 'localhost',
-    /* Une fonction qui se lance, un fois le server demarré */ () => {
+    /* Une fonction qui se lance, un fois le server demarré */ (error) => {
+      if (error) {
+        console.error(error)
+
+        return
+      }
+
       console.log(
         "Le server est disponible sur l'adresse : http://localhost:3030",
       )

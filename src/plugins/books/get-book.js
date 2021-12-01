@@ -1,11 +1,18 @@
 import mongo from 'mongodb'
+import { bookSchema } from '../../schemas/book-schema.js'
 
 export default async function getBook(app) {
   /**
    * 3. Créer une route GET /books/:id qui affiche le document
    *    livre avec l'id demandé en paramètre.
    */
-  app.get('/books/:id', async (request, reply) => {
+  app.get('/books/:id', {
+    schema: {
+      response: {
+        200: bookSchema
+      }
+    }
+  }, async (request, reply) => {
     /**
      * Nous récupérons le paramètre id de notre route.
      * Attention c'est une chaine de caractères

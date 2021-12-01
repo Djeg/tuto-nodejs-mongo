@@ -38,3 +38,11 @@ export const bookSchema = newBookSchema
   .title('Book')
   .description('Un livre dans l\'api')
   .prop('_id', S.string().required())
+
+/**
+ * Création du schéma d'une collection de livre
+ */
+export const bookCollectionSchema = S.array()
+  .title('BookCollection')
+  .description('Collection de livres')
+  .items(bookSchema)
