@@ -10,6 +10,7 @@ export default async function deleteBook(app) {
    */
   app.delete('/books/:id', {
     schema: {
+      tags: ['Book'],
       response: {
         200: bookSchema
       }

@@ -54,6 +54,12 @@ async function main() {
         description: 'Api pour l\'application libshop',
       },
       /**
+       * Définition des séctions de la documentation
+       */
+      tags: [
+        { name: 'Book', description: 'Concerne toutes les opérations sur les livres' },
+      ],
+      /**
        * Le host de notre api
        */
       host: 'localhost:3030',

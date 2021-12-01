@@ -19,6 +19,7 @@ export default async function listBook(app) {
    */
   app.get('/books', {
     schema: {
+      tags: ['Book'],
       response: {
         200: bookCollectionSchema,
       }

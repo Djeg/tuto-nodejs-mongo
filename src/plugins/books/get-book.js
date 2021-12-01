@@ -8,6 +8,7 @@ export default async function getBook(app) {
    */
   app.get('/books/:id', {
     schema: {
+      tags: ['Book'],
       response: {
         200: bookSchema
       }
