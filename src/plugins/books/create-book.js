@@ -1,4 +1,5 @@
 import mongo from 'mongodb'
+import { newBookSchema } from '../../schemas/book-schema.js'
 
 /**
  * En fastify un plugin c'est une fonction asynchrone
@@ -13,26 +14,7 @@ export default async function createBook(app) {
    */
   app.post('/books', {
     schema: {
-      body: {
-        type: 'object',
-        properties: {
-          title: {
-            type: 'string',
-          },
-          description: {
-            type: 'string',
-          },
-          image: {
-            type: 'string',
-          },
-          price: {
-            type: 'number',
-            exclusiveMinimum: 0,
-          },
-        },
-        required: [ 'title', 'description', 'image', 'price' ],
-        additionalProperties: false
-      },
+      body: newBookSchema,
     }
   }, async (request, reply) => {
     const livre = request.body
