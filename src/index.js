@@ -9,6 +9,7 @@ import deleteBook from './plugins/books/delete-book.js'
 import bookDecorator from './plugins/decorators/books.js'
 import dbDecorator from './plugins/decorators/db.js'
 import fp from 'fastify-plugin'
+import swagger from 'fastify-swagger'
 
 
 /**
@@ -23,6 +24,52 @@ async function main() {
     l'option logger nous permet de débugger notre
     serveur lorsque nous avons des erreurs */
     logger: true,
+  })
+
+  /**
+   * Enregistrement du plugin fastify swagger.
+   * 
+   * !ATTENTION! Le plugin doit être déclaré avant nos
+   * routes !
+   */
+  app.register(swagger, {
+    /**
+     * Définie la route qui nous permet d'accéder
+     * à la documentation de l'api
+     */
+    routePrefix: '/api/doc',
+    /**
+     * Active ou désactive la documentation
+     */
+    exposeRoute: true,
+    /**
+     * Configuration de l'interface de documentation
+     */
+    swagger: {
+      /**
+       * Information générale sur notre api
+       */
+      info: {
+        title: 'LibShop',
+        description: 'Api pour l\'application libshop',
+      },
+      /**
+       * Le host de notre api
+       */
+      host: 'localhost:3030',
+      /**
+       * Le protocole utilisé
+       */
+      schemes: ['http'],
+      /**
+       * Ce que retourne notre api, ici du json
+       */
+      produces: ['application/json'],
+      /**
+       * Ce que reçois notre api, ici du json
+       */
+      consumes: ['application/json'],
+    },
   })
 
   /**
