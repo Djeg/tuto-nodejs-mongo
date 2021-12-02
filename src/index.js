@@ -15,11 +15,21 @@ import bookDecorator from './plugins/decorators/books.js'
 import dbDecorator from './plugins/decorators/db.js'
 import fp from 'fastify-plugin'
 import swagger from 'fastify-swagger'
+import { config } from 'dotenv'
 
 /**
  * Voici la fonction principale de notre programme
  */
 async function main() {
+  /**
+   * Charge les variables d'environment du fichier .env et
+   * les places dans process.env
+   */
+  config()
+
+  // pour accéder à une variable d'environment
+  // process.env.MONGO_URL
+
   /**
    * Nous pouvons créer une application fastify
    */
@@ -27,7 +37,7 @@ async function main() {
     /* Ici nous spécifions des options.
     l'option logger nous permet de débugger notre
     serveur lorsque nous avons des erreurs */
-    logger: true,
+    logger: process.env.NODE_ENV !== 'production',
   })
 
   /**
@@ -41,11 +51,11 @@ async function main() {
      * Définie la route qui nous permet d'accéder
      * à la documentation de l'api
      */
-    routePrefix: '/api/doc',
+    routePrefix: process.env.API_DOC_URL,
     /**
      * Active ou désactive la documentation
      */
-    exposeRoute: true,
+    exposeRoute: process.env.API_DOC,
     /**
      * Configuration de l'interface de documentation
      */
@@ -69,11 +79,11 @@ async function main() {
       /**
        * Le host de notre api
        */
-      host: 'localhost:3030',
+      host: `${process.env.HOST}:${process.env.PORT}`,
       /**
        * Le protocole utilisé
        */
-      schemes: ['http'],
+      schemes: [process.env.SCHEME],
       /**
        * Ce que retourne notre api, ici du json
        */
@@ -115,8 +125,8 @@ async function main() {
    * notre machine
    */
   app.listen(
-    /* Le port */ 3030,
-    /* l'adresse de la machine, ici notre machine */ 'localhost',
+    /* Le port */ process.env.PORT,
+    /* l'adresse de la machine, ici notre machine */ process.env.HOST,
     /* Une fonction qui se lance, un fois le server demarré */ error => {
       if (error) {
         console.error(error)
@@ -125,7 +135,7 @@ async function main() {
       }
 
       console.log(
-        "Le server est disponible sur l'adresse : http://localhost:3030",
+        `Le server est disponible sur l'adresse : ${process.env.SCHEME}://${process.env.HOST}:${process.env.PORT}`,
       )
     },
   )
