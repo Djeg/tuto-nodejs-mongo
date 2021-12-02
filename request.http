@@ -1,4 +1,4 @@
-GET http://localhost:3030/books
+GET http://localhost:3030/books?limit=3&page=2&orderBy=title&direction=-1&title=har&minPrice=3.5&maxPrice=10&category=scie
 
 ###
 
