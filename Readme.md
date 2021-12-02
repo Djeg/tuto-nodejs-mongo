@@ -9,8 +9,9 @@ avec nodejs fastify et mongodb.
 2. Extraire l'archive ou vous le souhaiter
 3. Ouvrir le répertoire avec VSCode
 4. Installer les dépendances : `npm install`
-5. Configurer la base de données dans le fichier : `src/plugins/decorators/db.js`
-6. Lancer le serveur avec : `npm start`
+5. Copier le fichier `.env.dist` dans `.env`
+6. editer les valeurs de configuration dans le fichier `.env`
+7. Lancer le serveur avec : `npm start`
 
 ## Les exercices
 
