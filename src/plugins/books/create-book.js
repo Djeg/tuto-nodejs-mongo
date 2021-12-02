@@ -12,25 +12,34 @@ export default async function createBook(app) {
    *    avec le status code : 201 (il faut utiliser l'objet reply) et
    *    l'objet suivant : { id: 1, title: "Harry Potter" }
    */
-  app.post('/books', {
-    schema: {
-      tags: ['Book'],
-      body: newBookSchema,
-      response: {
-        201: bookSchema
+  app.post(
+    '/books',
+    {
+      schema: {
+        tags: ['Book'],
+        body: newBookSchema,
+        response: {
+          201: bookSchema,
+        },
+      },
+    },
+    async (request, reply) => {
+      const livre = request.body
+
+      if (livre.category) {
+        // Tester si la category éxsite dans la base de données,
+        // si oui, ne rien faire, si non et bien créer la catégory
       }
-    }
-  }, async (request, reply) => {
-    const livre = request.body
 
-    const result = await app.db.collection('books').insertOne(livre)
+      const result = await app.db.collection('books').insertOne(livre)
 
-    const book = await app.db.collection('books').findOne({
-      _id: result.insertedId,
-    })
+      const book = await app.db.collection('books').findOne({
+        _id: result.insertedId,
+      })
 
-    reply.code(201)
+      reply.code(201)
 
-    return book
-  })
+      return book
+    },
+  )
 }

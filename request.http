@@ -15,7 +15,10 @@ Content-Type: application/json
   "image": "fsdkfhdsfkdsh",
   "price": 3.5,
   "foo": "bar",
-  "sdkfhsdlkfhk": "sdlkfhsdlkf"
+  "sdkfhsdlkfhk": "sdlkfhsdlkf",
+  "category": {
+    "title": "Fantaisie"
+  }
 }
 
 ###

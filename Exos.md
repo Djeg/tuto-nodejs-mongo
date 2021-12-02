@@ -14,7 +14,7 @@
 ## Exo 2 : Créer une catégorie
 
 1. Ajouter la possibilité de créer une nouvelle catégorie
-  qui doit réspécter le schéma suivant :
+   qui doit réspécter le schéma suivant :
 
 ```
 title: string
@@ -32,7 +32,7 @@ title: string
 ## Exo 4 : Lier les catégories au livres
 
 1. Dans la route `POST /books` ajouter la possibilité de lui lier
-   une catégorie : 
+   une catégorie :
 
 ```
 {
