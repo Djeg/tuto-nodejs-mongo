@@ -14,6 +14,7 @@ import modifyCategory from './plugins/categories/modify-category.js'
 import bookDecorator from './plugins/decorators/books.js'
 import dbDecorator from './plugins/decorators/db.js'
 import fp from 'fastify-plugin'
+import cors from 'fastify-cors'
 import swagger from 'fastify-swagger'
 import { config } from 'dotenv'
 
@@ -41,6 +42,12 @@ async function main() {
   })
 
   /**
+   * Enregistrement du plugin fastify-cors pour désactivé
+   * la sécurité des navigateurs et application mobile
+   */
+  app.register(cors)
+
+  /**
    * Enregistrement du plugin fastify swagger.
    *
    * !ATTENTION! Le plugin doit être déclaré avant nos
@@ -55,7 +62,7 @@ async function main() {
     /**
      * Active ou désactive la documentation
      */
-    exposeRoute: process.env.API_DOC,
+    exposeRoute: process.env.API_DOC === 'true',
     /**
      * Configuration de l'interface de documentation
      */
