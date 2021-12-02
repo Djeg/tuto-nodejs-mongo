@@ -27,6 +27,7 @@ title: string
 2. Ajouter un plugin et une route pour modifier une catégorie
    graçe à son ID
 3. Ajouter un plugin et une route pour supprimer une catégorie
+4. Ajouter un plugin et une route pour lister les catégories
 
 ## Exo 4 : Lier les catégories au livres
 

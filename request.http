@@ -20,6 +20,15 @@ Content-Type: application/json
 
 ###
 
+PATCH http://localhost:3030/books/61a887c15bc359268adef14d
+Content-Type: application/json
+
+{
+  "title": "Titre modifié 2"
+}
+
+###
+
 GET http://localhost:3030/books
 
 ###
@@ -38,3 +47,29 @@ GET http://localhost:3030/books/24
 ###
 
 DELETE http://localhost:3030/books/61a73658459e4e30a477fba9
+
+###
+
+POST http://localhost:3030/categories
+Content-Type: application/json
+
+{
+  "title": "Ma catégorie 2"
+}
+
+###
+
+GET http://localhost:3030/categories
+
+###
+
+PUT http://localhost:3030/categories/61a88e995ebff86eeccb9c21
+Content-Type: application/json
+
+{
+  "title": "Nouvelle catégorie"
+}
+
+###
+
+DELETE http://localhost:3030/categories/61a88e995ebff86eeccb9c21

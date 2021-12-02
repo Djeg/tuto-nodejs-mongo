@@ -30,6 +30,17 @@ export const newBookSchema = S.object()
   .prop('image', S.string().required())
   .prop('price', S.number().exclusiveMinimum(0).required())
 
+/**
+ * Création du schéma d'une mise à jour d'un livre
+ */
+export const updateBookSchema = S.object()
+  .title('UpdateBook')
+  .description('Correspond à une mise à jour d\'un livre dans notre api')
+  .prop('title', S.string())
+  .prop('description', S.string())
+  .prop('image', S.string())
+  .prop('price', S.number().exclusiveMinimum(0))
+  
 
 /**
  * Création du schéma d'un livre
