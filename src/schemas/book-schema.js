@@ -59,3 +59,18 @@ export const bookCollectionSchema = S.array()
   .title('BookCollection')
   .description('Collection de livres')
   .items(bookSchema)
+
+/**
+ * Création du schéma de recherche de livres
+ */
+export const searchBookCriteriaSchema = S.object()
+  .title('SearchBookCriteria')
+  .description('Permet de rechercher des livres')
+  .prop('limit', S.number().exclusiveMinimum(0))
+  .prop('page', S.number().exclusiveMinimum(0))
+  .prop('orderBy', S.enum(['title', 'price', '_id']))
+  .prop('direction', S.enum(['ASC', 'DESC']))
+  .prop('title', S.string())
+  .prop('minPrice', S.number())
+  .prop('maxPrice', S.number())
+  .prop('category', S.string())
