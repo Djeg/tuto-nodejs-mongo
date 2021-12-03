@@ -2,13 +2,12 @@
  * Nous importons la librairie fastify
  */
 import Fastify from 'fastify'
-import books from './books/routes.js'
-import categories from './categories/routes.js'
-import bookDecorator from './plugins/decorators/books.js'
-import dbDecorator from './plugins/decorators/db.js'
+import books from './books/index.js'
+import categories from './categories/index.js'
+import swagger from './lib/swagger.js'
+import cors from './lib/cors.js'
+import mongodb from './lib/mongodb.js'
 import fp from 'fastify-plugin'
-import cors from 'fastify-cors'
-import swagger from 'fastify-swagger'
 import { config } from 'dotenv'
 
 /**
@@ -35,83 +34,18 @@ async function main() {
   })
 
   /**
-   * Enregistrement du plugin fastify-cors pour désactivé
-   * la sécurité des navigateurs et application mobile
+   * Nous enregistrons les plugins éxtérieur à notre
+   * domaine
    */
-  app.register(cors)
+  app.register(fp(cors))
+  app.register(fp(swagger))
+  app.register(fp(mongodb))
 
   /**
-   * Enregistrement du plugin fastify swagger.
-   *
-   * !ATTENTION! Le plugin doit être déclaré avant nos
-   * routes !
+   * Nous enregistrons les plugin domain
    */
-  app.register(swagger, {
-    /**
-     * Définie la route qui nous permet d'accéder
-     * à la documentation de l'api
-     */
-    routePrefix: process.env.API_DOC_URL,
-    /**
-     * Active ou désactive la documentation
-     */
-    exposeRoute: process.env.API_DOC === 'true',
-    /**
-     * Configuration de l'interface de documentation
-     */
-    swagger: {
-      /**
-       * Information générale sur notre api
-       */
-      info: {
-        title: 'LibShop',
-        description: "Api pour l'application libshop",
-      },
-      /**
-       * Définition des séctions de la documentation
-       */
-      tags: [
-        {
-          name: 'Book',
-          description: 'Concerne toutes les opérations sur les livres',
-        },
-      ],
-      /**
-       * Le host de notre api
-       */
-      host: `${process.env.HOST}:${process.env.PORT}`,
-      /**
-       * Le protocole utilisé
-       */
-      schemes: [process.env.SCHEME],
-      /**
-       * Ce que retourne notre api, ici du json
-       */
-      produces: ['application/json'],
-      /**
-       * Ce que reçois notre api, ici du json
-       */
-      consumes: ['application/json'],
-    },
-  })
-
-  /**
-   * Nous incluons en premier les plugins
-   * decorators.
-   *
-   * !Attention! si nous souhaitons décorer TOUT les plugins
-   * (et pas uniquement le plugin decotaror). Il faut
-   * installer et utiliser 'fastify-plugin'
-   */
-  app.register(fp(bookDecorator))
-  app.register(fp(dbDecorator))
-
-  /**
-   * Nous enregistrons le plugin "createBook" dans
-   * notre application :
-   */
-  app.register(books)
-  app.register(categories)
+  app.register(fp(books))
+  app.register(fp(categories))
 
   /**
    * Nous pouvons démarer un server logique sur

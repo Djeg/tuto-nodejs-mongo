@@ -24,17 +24,9 @@ export default async function bookRoutes(app) {
       },
     },
     async (request, reply) => {
-      const livre = request.body
-
-      const result = await app.db.collection('books').insertOne(livre)
-
-      const book = await app.db.collection('books').findOne({
-        _id: result.insertedId,
-      })
-
       reply.code(201)
 
-      return book
+      return app.books.create(request.body)
     },
   )
 
@@ -65,55 +57,7 @@ export default async function bookRoutes(app) {
       },
     },
     async request => {
-      let filters = {}
-      const page = parseInt(request.query.page) || 1
-      const orderBy = request.query.orderBy || 'title'
-      const direction = request.query.direction || 'DESC'
-      const limit =
-        request.query.limit ||
-        parseInt(process.env.API_DEFAULT_COLLECTION_LIMIT)
-
-      if (request.query.title) {
-        filters = { ...filters, title: { $regex: request.query.title } }
-      }
-
-      if (request.query.minPrice) {
-        filters = { ...filters, price: { $gte: request.query.minPrice } }
-      }
-
-      if (request.query.maxPrice) {
-        if (request.query.minPrice) {
-          filters = {
-            ...filters,
-            price: {
-              $gte: request.query.minPrice,
-              $lte: request.query.maxPrice,
-            },
-          }
-        } else {
-          filters = {
-            ...filters,
-            price: { $lte: request.query.maxPrice },
-          }
-        }
-      }
-
-      if (request.query.category) {
-        filters = {
-          ...filters,
-          'category.title': { $regex: request.query.category },
-        }
-      }
-
-      const books = await app.db
-        .collection('books')
-        .find(filters)
-        .limit(limit)
-        .skip(limit * (page - 1))
-        .sort({ [orderBy]: 'ASC' === direction ? 1 : -1 })
-        .toArray()
-
-      return books
+      return app.books.search(request.query)
     },
   )
 
@@ -138,19 +82,7 @@ export default async function bookRoutes(app) {
        * Nous récupérons le paramètre id de notre route.
        * Attention c'est une chaine de caractères
        */
-      const id = request.params.id
-
-      /**
-       * Nous récupérons le livre correspondant à l'id
-       * envoyer en paramètre en utilisant la "db"
-       * décoré dans 'src/decorators/db.js'
-       */
-      const book = await app.db.collection('books').findOne({
-        /**
-         * Nous devons convertir l'id (string) en object ID !
-         */
-        _id: mongo.ObjectId(id),
-      })
+      const book = await app.books.get(request.params.id)
 
       /**
        * Si il n'y a pas de livre nous retournons une erreur
@@ -184,23 +116,7 @@ export default async function bookRoutes(app) {
       },
     },
     async (request, reply) => {
-      const id = mongo.ObjectId(request.params.id)
-
-      const book = await app.db.collection('books').findOne({
-        _id: id,
-      })
-
-      if (!book) {
-        reply.code(404)
-
-        return { message: 'No book' }
-      }
-
-      await app.db.collection('books').deleteOne({
-        _id: id,
-      })
-
-      return book
+      return app.books.delete(request.params.id)
     },
   )
 
@@ -216,27 +132,7 @@ export default async function bookRoutes(app) {
       },
     },
     async (request, reply) => {
-      const id = mongo.ObjectId(request.params.id)
-
-      const book = await app.db.collection('books').findOne({
-        _id: id,
-      })
-
-      if (!book) {
-        reply.code(404)
-
-        return { message: 'No book' }
-      }
-
-      await app.db
-        .collection('books')
-        .updateOne({ _id: id }, { $set: { ...book, ...request.body } })
-
-      const updatedBook = await app.db.collection('books').findOne({
-        _id: id,
-      })
-
-      return updatedBook
+      return app.books.update(request.params.id, request.body)
     },
   )
 }

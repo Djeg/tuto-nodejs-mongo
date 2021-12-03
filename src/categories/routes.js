@@ -4,7 +4,7 @@ import * as Schema from './schemas.js'
 /**
  * Contient toutes les routes concernant les catégories
  */
-export default async function (app) {
+export default async function categoryRoutes(app) {
   /**
    * Route permettant de créer une catégorie
    */
@@ -17,13 +17,9 @@ export default async function (app) {
       },
     },
     async (request, reply) => {
-      const result = await app.db
-        .collection('categories')
-        .insertOne(request.body)
-
       reply.code(201)
 
-      return app.db.collection('categories').findOne({ _id: result.insertedId })
+      return app.categories.create(request.body)
     },
   )
 
@@ -51,24 +47,8 @@ export default async function (app) {
         response: { 200: Schema.categorySchema },
       },
     },
-    async (request, reply) => {
-      const id = mongo.ObjectId(request.params.id)
-
-      const category = await app.db
-        .collection('categories')
-        .findOne({ _id: id })
-
-      if (!category) {
-        reply.code(404)
-
-        return { message: 'No category' }
-      }
-
-      await app.db
-        .collection('categories')
-        .updateOne({ _id: id }, { $set: { ...category, ...request.body } })
-
-      return app.db.collection('categories').findOne({ _id: id })
+    async request => {
+      return app.categories.update(request.params.id, request.body)
     },
   )
 
@@ -80,22 +60,8 @@ export default async function (app) {
     {
       schema: { reponse: { 200: Schema.categorySchema } },
     },
-    async (request, reply) => {
-      const id = mongo.ObjectId(request.params.id)
-
-      const category = await app.db.collection('categories').findOne({
-        _id: id,
-      })
-
-      if (!category) {
-        reply.code(404)
-
-        return { message: 'No category' }
-      }
-
-      await app.db.collection('categories').deleteOne({ _id: id })
-
-      return category
+    async request => {
+      return app.categories.delete(request.params.id)
     },
   )
 }

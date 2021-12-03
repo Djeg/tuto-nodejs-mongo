@@ -1,4 +1,4 @@
-GET http://localhost:3030/books?limit=25&category=Science
+GET http://localhost:3030/books?limit=25
 
 ###
 
@@ -23,7 +23,7 @@ Content-Type: application/json
 
 ###
 
-PATCH http://localhost:3030/books/61a887c15bc359268adef14d
+PATCH http://localhost:3030/books/61a9fbecfa2bdcc514d6a5d1
 Content-Type: application/json
 
 {
@@ -66,7 +66,7 @@ GET http://localhost:3030/categories
 
 ###
 
-PUT http://localhost:3030/categories/61a88e995ebff86eeccb9c21
+PUT http://localhost:3030/categories/61a9fc331ea44f215de2cc59
 Content-Type: application/json
 
 {
