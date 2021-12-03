@@ -76,3 +76,13 @@ Content-Type: application/json
 ###
 
 DELETE http://localhost:3030/categories/61a88e995ebff86eeccb9c21
+
+###
+
+POST http://localhost:3030/users
+Content-Type: application/json
+
+{
+  "email": "john@mail.com",
+  "password": "johnjohn"
+}

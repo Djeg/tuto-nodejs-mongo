@@ -4,6 +4,7 @@
 import Fastify from 'fastify'
 import books from './books/index.js'
 import categories from './categories/index.js'
+import users from './users/index.js'
 import swagger from './lib/swagger.js'
 import cors from './lib/cors.js'
 import mongodb from './lib/mongodb.js'
@@ -46,6 +47,7 @@ async function main() {
    */
   app.register(fp(books))
   app.register(fp(categories))
+  app.register(fp(users))
 
   /**
    * Nous pouvons démarer un server logique sur
