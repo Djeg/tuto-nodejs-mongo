@@ -1,6 +1,14 @@
 import S from 'fluent-json-schema'
 
 /**
+ * @module categories/schemas
+ *
+ * Concerne le code d'une catégorie. Une catégorie permet de
+ * classer des livres dans des styles données. Par éxemple
+ * la catégorie Science Fiction ou encore Fantaisie.
+ */
+
+/**
  * Schèma d'une nouvelle catégorie
  */
 export const newCategorySchema = S.object()

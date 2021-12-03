@@ -2,7 +2,15 @@
  * Nous importons la librairie JSON fluent schema
  */
 import S from 'fluent-json-schema'
-import { newCategorySchema } from './category-schema.js'
+import { newCategorySchema } from '../categories/schemas.js'
+
+/**
+ * @module books/schemas
+ *
+ * Concerne les livres. C'est ici qu'on retrouve les composants
+ * qui forme un livre ainsi que les objets nous permettant
+ * de créer, lister, mettre à jour des livres.
+ */
 
 /**
  * Création du schéma d'un nouveau livre
