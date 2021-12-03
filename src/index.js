@@ -8,6 +8,7 @@ import users from './users/index.js'
 import swagger from './lib/swagger.js'
 import cors from './lib/cors.js'
 import mongodb from './lib/mongodb.js'
+import jwt from './lib/jwt.js'
 import fp from 'fastify-plugin'
 import { config } from 'dotenv'
 
@@ -41,6 +42,7 @@ async function main() {
   app.register(fp(cors))
   app.register(fp(swagger))
   app.register(fp(mongodb))
+  app.register(fp(jwt))
 
   /**
    * Nous enregistrons les plugin domain

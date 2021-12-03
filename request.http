@@ -8,6 +8,7 @@ GET http://localhost:3030
 
 POST http://localhost:3030/books
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2Mzg1NDI4MTN9.L0yh7HIYla2Go86_fJGyCLLHsEi3Kg-yPLKmCwWkd-A
 
 {
   "title": "test",
@@ -80,6 +81,16 @@ DELETE http://localhost:3030/categories/61a88e995ebff86eeccb9c21
 ###
 
 POST http://localhost:3030/users
+Content-Type: application/json
+
+{
+  "email": "john@mail.com",
+  "password": "johnjohn"
+}
+
+###
+
+POST http://localhost:3030/users/token
 Content-Type: application/json
 
 {

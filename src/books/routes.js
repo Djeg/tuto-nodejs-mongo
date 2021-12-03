@@ -24,6 +24,13 @@ export default async function bookRoutes(app) {
       },
     },
     async (request, reply) => {
+      /**
+       * Test si un utilisateur est connécté via
+       * un JSON Web Token. Si aucun utilisateur
+       * n'est connécté, cela léve une erreur
+       */
+      await request.jwtVerify()
+
       reply.code(201)
 
       return app.books.create(request.body)
