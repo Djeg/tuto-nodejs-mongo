@@ -126,3 +126,14 @@ const books = await app.db
   .collection('books')
   .find({ 'category.title': { $regex: 'test' } })
 ```
+
+## Exo 6 : Creer un utilisateur
+
+1. Créer les schémas (NewUser) et (User) avec les champs suivants :
+
+- `email (string)`
+- `password (string)`
+
+2. Créer la route POST /users qui créé un utilisateur dans la base de données
+
+(3. Trouver le moyen de crypter mot de passe)
